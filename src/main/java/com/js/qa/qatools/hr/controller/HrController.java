@@ -1,0 +1,194 @@
+package com.js.qa.qatools.hr.controller;
+
+import com.js.qa.qatools.hr.dto.*;
+import com.js.qa.qatools.hr.service.mysql.MySQL_HR_Service;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+@RequiredArgsConstructor
+@Controller
+@RequestMapping("/hr")
+@Log4j2
+public class HrController {
+    private final String DB_MYSQL = "mysql";
+    private final String DB_MSSQL = "mssql";
+    private final String DB_ORACLE = "oracle";
+
+    private final MySQL_HR_Service mysqlService;
+
+    @GetMapping("/list")
+    public void hr_list(PageRequestDTO pageRequestDTO, Model model){
+
+        // DB타입이 없을경우 MYSQL 기본값 정의
+        if(pageRequestDTO.getDbType() == null){
+            pageRequestDTO.setDbType(DB_MYSQL);
+        }
+
+        if(pageRequestDTO.getDbType().equals(DB_MYSQL)){
+            model.addAttribute("result", mysqlService.getList(pageRequestDTO));
+            model.addAttribute("dataLength", mysqlService.hr_getCnt());
+        }
+        else if(pageRequestDTO.getDbType().equals(DB_MSSQL)){
+
+        }
+        else if(pageRequestDTO.getDbType().equals(DB_ORACLE)){
+
+        }
+
+        log.info("list........................" + pageRequestDTO);
+        log.info("result : " + model.getAttribute("result"));
+        log.info("dataLength : " + model.getAttribute("dataLength"));
+    }
+
+    // 생성화면
+    @GetMapping("/add")
+    public void hr_add(Model model){
+        model.addAttribute("gradeList", mysqlService.grade_getList());
+        model.addAttribute("deptList", mysqlService.dept_getList());
+        log.info("hr_add apge");
+    }
+
+    // 수정화면
+    @GetMapping("/modifyHR")
+    public void hr_modify(Model model, Integer emp_no){
+        System.out.println("emp_no : " + emp_no);
+        model.addAttribute("gradeList", mysqlService.grade_getList());
+        model.addAttribute("deptList", mysqlService.dept_getList());
+        model.addAttribute("result", mysqlService.hr_read(emp_no));
+
+        log.info("hr_modify apge");
+    }
+
+    // HR 수정
+    @PostMapping("/actionModify")
+    public String hr_modify(hrDTO dto, RedirectAttributes redirectAttributes){
+        mysqlService.hr_modify(dto);
+        redirectAttributes.addFlashAttribute("msg","수정되었습니다.");
+        return "redirect:/hr/list";
+    }
+
+    // 자동생성
+    @PostMapping("/autoAdd")
+    public String hr_auto_add(GenerateRequestPageDTO generateRequestPageDTO, RedirectAttributes redirectAttributes){
+        if(generateRequestPageDTO.getTargetDatabase().equals(DB_MYSQL)){
+            mysqlService.hr_auto_register(
+                    Integer.parseInt(generateRequestPageDTO.getCount()),
+                    generateRequestPageDTO.getCheck_clear(),
+                    generateRequestPageDTO.getFiltermode(),
+                    generateRequestPageDTO.getLang(),
+                    generateRequestPageDTO.getGrade(),
+                    generateRequestPageDTO.getDept(),
+                    generateRequestPageDTO.getMailserver_encrypt(),
+                    generateRequestPageDTO.getMailserver_host(),
+                    generateRequestPageDTO.getMailserver_port(),
+                    generateRequestPageDTO.getGrp(),
+                    generateRequestPageDTO.getGrp_admin(),
+                    generateRequestPageDTO.getApt(),
+                    generateRequestPageDTO.getDetox(),
+                    generateRequestPageDTO.getDomainList());
+        }
+
+        redirectAttributes.addFlashAttribute("msg", "정상 처리되었습니다.");
+
+        return "redirect:/hr/list";
+    }
+
+    // 부서추가 화면
+    @PostMapping("actionRegisterDept")
+    public String dept_add(deptDTO deptDTO){
+        mysqlService.dept_register(deptDTO);
+        return "redirect:/hr/modifyDept";
+    }
+
+
+    // 직급수정 화면
+    @GetMapping("/modifyGrade")
+    public void hr_modify_grade(Model model){
+        model.addAttribute("result", mysqlService.grade_getList());
+        log.info(mysqlService.grade_getList());
+    }
+
+    // 부서수정 화면
+    @GetMapping("/modifyDept")
+    public void hr_modify_dept(Model model){
+        model.addAttribute("result", mysqlService.dept_getList());
+        log.info(mysqlService.dept_getList());
+    }
+
+    // 모두삭제
+    @PostMapping("/allRemove")
+    public String hr_removeAll(RedirectAttributes redirectAttributes){
+        mysqlService.hr_removeAll();
+
+        redirectAttributes.addFlashAttribute("msg","모두 삭제되었습니다.");
+
+        log.info("remove all.");
+        return "redirect:/hr/list";
+    }
+
+    // 체크항목 삭제
+    @PostMapping("/check_remove")
+    public String hr_multiple_remove(@RequestParam(value = "chkList[]") String[] chkList,
+                                     RedirectAttributes redirectAttributes){
+        for(int i = 0; i < chkList.length; i++){
+            mysqlService.hr_remove(Integer.parseInt(chkList[i]));
+        }
+
+        redirectAttributes.addFlashAttribute("msg","모두 삭제되었습니다.");
+
+        log.info("checkbox remove.");
+        return "{}";
+    }
+
+    // 단일항목 삭제
+    @PostMapping("/remove")
+    public String hr_remove(Integer no, RedirectAttributes redirectAttributes){
+        mysqlService.hr_remove(no);
+
+        redirectAttributes.addFlashAttribute("msg","삭제되었습니다.");
+
+        log.info(no + "remove.");
+        return "redirect:/hr/list";
+    }
+
+    // 부서 수정
+    @PostMapping("/actionModifyDept")
+    public String dept_modify(deptDTO deptDto, RedirectAttributes redirectAttributes){
+        System.out.println("dept_modify() : "+deptDto);
+        mysqlService.dept_modify(deptDto);
+        return "redirect:/hr/modifyDept";
+    }
+
+    // 부서 삭제
+    @PostMapping("/actionRemoveDept")
+    public String dept_remove(deptDTO deptDto, RedirectAttributes redirectAttributes){
+        mysqlService.dept_remove(deptDto.getDept_num());
+        return "redirect:/hr/modifyDept";
+    }
+
+    // 직급 수정
+    @PostMapping("/actionModifyGrade")
+    public String grade_modify(gradeDTO gradeDTO, RedirectAttributes redirectAttributes){
+        System.out.println("dept_modify() : "+gradeDTO);
+        mysqlService.grade_modify(gradeDTO);
+        return "redirect:/hr/modifyGrade";
+    }
+
+    // 직급 삭제
+    @PostMapping("/actionRemoveGrade")
+    public String grade_remove(gradeDTO gradeDTO, RedirectAttributes redirectAttributes){
+        mysqlService.grade_remove(gradeDTO.getGrade_num());
+        return "redirect:/hr/modifyGrade";
+    }
+
+    // 직급 추가
+    @PostMapping("/actionRegisterGrade")
+    public String grade_register(gradeDTO gradeDTO, RedirectAttributes redirectAttributes){
+        mysqlService.grade_register(gradeDTO);
+        return "redirect:/hr/modifyGrade";
+    }
+}

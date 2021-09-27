@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:td="http://www.w3.org/1999/xhtml">
+<th:block th:replace="~{/common_layout/basic :: setContent(~{this::content} )}">
+  <th:block th:fragment="content">
+    <head>
+      <meta charset="UTF-8">
+    </head>
+    <body>
+    <div id="generateUserLayout" style="font-size: 9pt; padding: 30px; width: 700px">
+      <form>
+        <div class="form-group row">
+          <label for="input_emp_no" class="col-sm-2 col-form-label" style="font-weight: bold">No</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_emp_no" name="NO" th:value="${result.NO}" readonly style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_email" class="col-sm-2 col-form-label" style="font-weight: bold">Email</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_email" name="EMAIL" th:value="${result.EMAIL}" style="font-size: 9pt;">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_password" class="col-sm-2 col-form-label" style="font-weight: bold">Password</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_password" name="PASSWORD" th:value="${result.PASSWORD}" style="font-size: 9pt;">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_name" class="col-sm-2 col-form-label" style="font-weight: bold">Name</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_name" name="NAME" th:value="${result.NAME}" style="font-size: 9pt;">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_grp" class="col-sm-2 col-form-label" style="font-weight: bold">GRP</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_grp" name="GRP" placeholder="" th:value="${result.GRP}" style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_grp_admin" class="col-sm-2 col-form-label" style="font-weight: bold">GRP_ADMIN</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_grp_admin" name="GRP_ADMIN" placeholder="" th:value="${result.GRP_ADMIN}" style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_grp" class="col-sm-2 col-form-label" style="font-weight: bold">DOMAIN</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_domain" name="DOMAIN" th:value="${result.DOMAIN}" style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_ears_use" class="col-sm-2 col-form-label" style="font-weight: bold">EARS_USE</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_ears_use" name="EARS_USE" th:value="${result.EARS_USE}" style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_ears_expire_action" class="col-sm-2 col-form-label" style="font-weight: bold">EARS_EXPIRE_ACTION</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_ears_expire_action" name="EARS_EXPIRE_ACTION" th:value="${result.EARS_EXPIRE_ACTION}" style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_route_server" class="col-sm-2 col-form-label" style="font-weight: bold">ROUTE_SERVER</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_route_server" name="ROUTE_SERVER" th:value="${result.ROUTE_SERVER}" style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_forward_server" class="col-sm-2 col-form-label" style="font-weight: bold">FORWARD_SERVER</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_forward_server" name="FORWARD_SERVER" th:value="${result.FORWARD_SERVER}" style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_route_email" class="col-sm-2 col-form-label" style="font-weight: bold">ROUTE_EMAIL</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_route_email" name="ROUTE_EMAIL" th:value="${result.ROUTE_EMAIL}" style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_run_mode" class="col-sm-2 col-form-label" style="font-weight: bold">RUN_MODE</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_run_mode" name="RUN_MODE" th:value="${result.RUN_MODE}" style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_filter_order" class="col-sm-2 col-form-label" style="font-weight: bold">FILTER_ORDER</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_filter_order" name="FILTER_ORDER" th:value="${result.FILTER_ORDER}" style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_apt_use" class="col-sm-2 col-form-label" style="font-weight: bold">APT_USE</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_apt_use" name="APT_USE" th:value="${result.APT_USE}" style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_detox_use" class="col-sm-2 col-form-label" style="font-weight: bold">DETOX_USE</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_detox_use" name="DETOX_USE" th:value="${result.DETOX_USE}" style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_lang" class="col-sm-2 col-form-label" style="font-weight: bold">LANG</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_lang" name="LANG" th:value="${result.LANG}" style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_usr_manager" class="col-sm-2 col-form-label" style="font-weight: bold">USR_MANAGER</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_usr_manager" name="USR_MANAGER" th:value="${result.USR_MANAGER}" style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="input_is_valid" class="col-sm-2 col-form-label" style="font-weight: bold">IS_VALID</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_is_valid" name="IS_VALID" th:value="${result.IS_VALID}" style="font-size: 9pt">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="inputGrade" style="font-weight: bold">직급</label>
+          <select class="form-control" id="inputGrade" name="USR_GRADE" style="font-size: 9pt">
+            <option value="0">무작위</option>
+            <option th:each="grade : ${gradeList}" th:value="${grade.grade_num}" th:text="${grade.grade_name}"></option>
+          </select>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="inputDept" style="display: inline-block; font-weight: bold;">부서</label>
+          <select class="form-control" id="inputDept" name="DEPT_INFO" style="font-size: 9pt">
+            <option value="0">무작위</option>
+            <option th:each="dept : ${deptList}" th:value="${dept.dept_num}" th:text="${dept.dept_name}"></option>
+          </select>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button type="submit" id="btn_modify" class="btn btn-primary">수정</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </body>
+    <script th:inline="javascript">
+      var actionForm = $("form");
+      var msg = [[${msg}]];
+      console.log(msg);
+      if(msg){
+        $(".modal").modal();
+      }
+
+
+      $("#btn_modify").click(function () {
+        actionForm
+                .attr("action", "/hr/actionModify")
+                .attr("method", "post");
+        actionForm.submit();
+      });
+    </script>
+
+  </th:block>
+</th:block>

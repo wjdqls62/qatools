@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:td="http://www.w3.org/1999/xhtml">
+<th:block th:replace="~{/common_layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div class="container" id="requestlayout" style="text-align: center">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"></h3>
+                    </div>
+                    <div class="panel-body">
+                        <form accept-charset="UTF-8" role="form" id="requestForm" action="/testlink/api/metric" method="get" onsubmit="return validation()">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Project-Id" id="projectId" name="projectId" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Plan-Id" id="testPlanId" name="testPlanId" type="text" value="-1">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Build-Id" id="buildId" name="buildId" type="text" value="-1">
+                                </div>
+                                <input type="hidden" id="isDebug" name="isDebug" value="false">
+                                <input id="requestBtn" class="btn btn-lg btn-success btn-block" type="button" value="Request">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <div>
+                    <p>Tip. -1 을 입력하면 가장 최근값으로 조회됩니다.(Project-Id 제외)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="resultLayout" id="resultLayout" style="display: none" >
+        <form action="popup_detail.html">
+        <table class="table table-striped" id="table_column">
+            <thead align="center" class="table_column">
+            <td>#</td>
+            <td>Project Id</td>
+            <td>TestPlan Id</td>
+            <td>Build Id</td>
+            <td>TestCase Id</td>
+            <td>품질특성</td>
+            <td>부특성</td>
+            <td>Detail</td>
+            <td>TestCase Result</td>
+            </thead>
+            <tbody id="qMetricData" align="center">
+            </tbody>
+        </table>
+        </form>
+    </div >
+
+
+    <script th:inline="javascript">
+        var requestForm = $("#requestForm");
+        var openDetail;
+
+        $('#requestBtn').click(function () {
+            $.ajax({
+                url:"/testlink/api/metric",
+                dataType:'json',
+                type:'get',
+                data:{
+                    projectId:$('#projectId').val(),
+                    testPlanId:$('#testPlanId').val(),
+                    buildId:$('#buildId').val(),
+                    isDebug:$('#isDebug').val(),
+                },
+                // 통신을 시작할때
+                beforeSend : function () {
+                    // 마우스커서 로딩표시
+                    $('html').css('cursor', 'wait');
+                },
+
+                // 통신에 성공할때
+                complete : function () {
+                    // 마우스커서 일반표시
+                    $('html').css('cursor', 'auto');
+                },
+
+                // JSON수신 성공
+                success : function (data) {
+                    // RequestForm 숨김처리
+                    $("#requestlayout").hide();
+
+                    // 갱신시간 표시
+                    $("update_time").text(new Date());
+
+                    // 결과테이블 생성
+                    createResultTable(data);
+
+                },
+
+                // JSON수신 실패
+                error :function (xhr) {
+                    alert('요청에 실패했습니다.');
+                }
+            })
+        });
+
+        function createResultTable(data) {
+
+            for(var i = 0; i < data.length; i++){
+                var innerHtml = '';
+
+                innerHtml += '<tr>';
+                innerHtml += '<td>' + data[i].index + '</td>';
+                innerHtml += '<td>' + data[i].projectId + '</td>';
+                innerHtml += '<td>' + data[i].testPlanId + '</td>';
+                innerHtml += '<td>' + data[i].buildId + '</td>';
+                innerHtml += '<td>' + data[i].testcaseId + '</td>';
+                innerHtml += '<td>' + data[i].customField1 + '</td>';
+                innerHtml += '<td>' + data[i].customField2 + '</td>';
+                innerHtml += '<td><a href="" target="_blank" onclick="window.open(this.href,\'_blank\',\'width=900,height=500)">View</a></td>';
+                innerHtml += '<td>' + data[i].testcaseResult + '</td>';
+                innerHtml += '</tr>';
+
+                $("#table_column>tbody:last").append(innerHtml);
+                $("#table_column").find("a:last").prop('href','/testlink/testcase/detail?id=' + data[i].testcaseId);
+
+            }
+
+            $("#resultLayout").show();
+
+
+            $("#detailBtn").click(function () {
+                alert('test2')
+                var str = '';
+                var viewBtn = $(this);
+                var tr = viewBtn.parent().parent();
+                var td = tr.children();
+
+                console(td.eq(0).text());
+                console(td.eq(1).text());
+                console(td.eq(2).text());
+                console(td.eq(3).text());
+            })
+        }
+    </script>
+</body>
+</th:block>
+</th:block>

@@ -1,0 +1,6 @@
+.resultLayout, update_time_area, detail_table {padding: 30px; font-size: 9pt;}
+.update_time_area{float: right}
+.requestlayout, hr_data_Result_Layout, generateUserLayout, form-control, modifyDeptLayout, modifyGradeLayout{text-align: center; font-size: 9pt; padding: 30px;}
+.table_column, custom_title{font-weight: bold}
+.btn_popup_close, popup_modify_title{display: flex; justify-content: center;}
+

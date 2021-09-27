@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+        <!-- Bootstrap core CSS -->
+        <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+            <!-- Custom styles for this template -->
+            <link th:href="@{/css/simple-sidebar.css}" rel="stylesheet">
+                <link th:href="@{/css/common.css}" rel="stylesheet">
+
+                    <!-- Bootstrap core JavaScript -->
+                    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</head>
+
+<body>
+<table id="detail_table" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Detail View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>testcaseId</th>
+        <td th:text="${testcaseId}">2</td>
+    </tr>
+    <tr>
+        <th>testcaseName</th>
+        <td th:text="${testcaseName}">2</td>
+    </tr>
+    <tr>
+        <th>testcaseSummary</th>
+        <td th:text="${testcaseSummary}">2</td>
+    </tr>
+    <tr>
+        <th>testcaseStep</th>
+        <td th:text="${testcaseStep}">2</td>
+    </tr>
+    <tr>
+        <th>testcaseResult</th>
+        <td th:text="${testcaseResult}">2</td>
+    </tr>
+    <tr>
+        <th>customField1</th>
+        <td th:text="${customField1}">2</td>
+    </tr>
+    <tr>
+        <th>customField2</th>
+        <td th:text="${customField2}">2</td>
+    </tr>
+</tbody>
+</table>
+<div id="step-area">
+</div>
+</body>
+    </th:block>
+</html>

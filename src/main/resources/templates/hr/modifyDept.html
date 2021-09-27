@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta charset="UTF-8">
+        <title>부서 수정</title>
+        <!-- Bootstrap core CSS -->
+        <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link th:href="@{/css/simple-sidebar.css}" rel="stylesheet">
+        <link th:href="@{/css/common.css}" rel="stylesheet">
+
+        <!-- Bootstrap core JavaScript -->
+        <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+        <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <script th:inline="javascript">
+            var msg = [[${msg}]];
+            console.log(msg);
+            if(msg){
+                $(".modal").modal();
+            }
+
+            var modify = function (dept_num) {
+                var form = $("form[id=" + dept_num + "]");
+                form
+                    .attr("action", "/hr/actionModifyDept")
+                    .attr("method", "POST");
+                form.submit();
+            }
+            var remove = function (dept_num) {
+                var form = $("form[id=" + dept_num + "]");
+                form
+                    .attr("action", "/hr/actionRemoveDept")
+                    .attr("method", "POST");
+                form.submit();
+            }
+            var add = function () {
+                var form = $("form[id=add_dept]");
+                form
+                    .attr("action", "/hr/actionRegisterDept")
+                    .attr("method", "POST");
+                form.submit();
+            }
+        </script>
+    </head>
+    <body>
+    <div id="modifyDeptLayout">
+        <div id="popup_modify_title">
+            <h1>부서정보</h1>
+        </div>
+        <table class="table table-striped" id="table_column">
+            <thead align="center" class="table_column">
+            <tr>
+                <td>부서번호</td>
+                <td>부서명</td>
+                <td>상위부서</td>
+            </tr>
+            </thead>
+            <tbody id="deptData" align="center">
+            <th:block th:if="${result != null}">
+                <tr>
+                    <form id="add_dept">
+                        <td scope="row">New</td>
+                        <td scope="row"><input type="text" name="dept_name" /></td>
+                        <td scope="row"><input type="text" name="dept_parent"/></td>
+                        <td scope="row"><button type="button" id="btn_reg_dept" th:onclick="|javascript:add();|" >추가</button></td>
+                        <td></td>
+                    </form>
+                </tr>
+                <tr th:each="dto : ${result}">
+                    <form th:id="${dto.dept_num}" method="get">
+                        <input type="hidden" name="dept_num" th:value="${dto.dept_num}">
+                        <td scope="row" th:text="${dto.dept_num}"></td>
+                        <td scope="row"><input type="text" name="dept_name" th:value="${dto.dept_name}"/></td>
+                        <td scope="row"><input type="text" name="dept_parent" th:value="${dto.dept_parent}"/></td>
+                        <td scope="row"><button type="button" id="btn_modify" th:onclick="|javascript:modify(${dto.dept_num});|" >수정</button></td>
+                        <td scope="row"><button type="button" id="btn_delete" th:onclick="|javascript:remove(${dto.dept_num});|">삭제</button> </td>
+                    </form>
+                </tr>
+            </th:block>
+            <tr th:if="${result == null or result.size == 0}" >
+                <td colspan="3">데이터가 없습니다.</td>
+            </tr>
+            </tbody>
+        </table>
+        <div id="btn_popup_close">
+            <button type="button" onclick="window.close();">닫기</button>
+        </div>
+    </div>
+
+    </body>
+</th:block>
+</html>

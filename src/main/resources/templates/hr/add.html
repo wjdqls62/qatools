@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:td="http://www.w3.org/1999/xhtml">
+<th:block th:replace="~{/common_layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+        <div id="generateUserLayout" style="font-size: 9pt; padding: 30px; width: 700px">
+        <form>
+            <div class="form-group row">
+                <label for="inputTargetDatabase" class="col-sm-2 col-form-label">데이터베이스</label>
+                <div class="col-sm-10">
+                    <select id="inputTargetDatabase" name="targetDatabase">
+                        <option value="mysql" selected>MySQL</option>
+                        <option value="mssql" disabled>MS-SQL</option>
+                        <option value="oracle" disabled>Oracle</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputCount" class="col-sm-2 col-form-label " style="font-weight: bold">생성 유저수</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputCount" name="count" placeholder="10" value="10" style="font-size: 9pt">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputMailServer_encrypt" class="col-sm-2 col-form-label" style="font-weight: bold">메일서버</label>
+                <div class="col-sm-10" style="display: inline-block">
+                    <select id="inputMailServer_encrypt" name="mailserver_encrypt" style="padding-bottom: 5px; font-size: 9pt;">
+                        <option value="0">0 : 사용안함</option>
+                        <option value="1">1 : TLS(A)</option>
+                        <option value="2">2 : TLS</option>
+                        <option value="3">3 : SSL</option>
+                    </select>
+                    <input type="text" class="form-control" id="inputMailServer_host" name="mailserver_host" placeholder="Server Host" value="10.53.168.249" style="padding-bottom: 5px; display: inline-block; font-size: 9pt" >
+                    <input type="text" class="form-control" id="inputMailServer_port" name="mailserver_port" placeholder="Port" value="25" style="display: inline-block; font-size: 9pt" >
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputLanguage" class="col-sm-2 col-form-label" style="font-weight: bold">사용자 언어</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputLanguage" name="lang" placeholder="ko" value="ko" style="font-size: 9pt">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputfilterMode" class="col-sm-2 col-form-label" style="font-weight: bold">필터모드</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputfilterMode" name="filtermode" placeholder="OUaA" value="OUaA" style="font-size: 9pt;">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputfilterMode" class="col-sm-2 col-form-label" style="font-weight: bold">그룹</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputGrp" name="grp" placeholder="" value="" style="font-size: 9pt;">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputfilterMode" class="col-sm-2 col-form-label" style="font-weight: bold">그룹관리자</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputGrpAdmin" name="grp_admin" placeholder="" value="" style="font-size: 9pt;">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputfilterMode" class="col-sm-2 col-form-label" style="font-weight: bold">무해화(APT)</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputApt" name="apt" placeholder="" value="" style="font-size: 9pt">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputfilterMode" class="col-sm-2 col-form-label" style="font-weight: bold">샌드박스(Detox)</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputDetox" name="detox" placeholder="" value="" style="font-size: 9pt">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="inputGrade" style="font-weight: bold">직급</label>
+                <select class="form-control" id="inputGrade" name="grade" style="font-size: 9pt">
+                    <option value="0">무작위</option>
+                    <option th:each="grade : ${gradeList}" th:value="${grade.grade_num}" th:text="${grade.grade_name}"></option>
+                </select>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="inputDept" style="display: inline-block; font-weight: bold;">부서</label>
+                <select class="form-control" id="inputDept" name="dept" style="font-size: 9pt">
+                    <option value="0">무작위</option>
+                    <option th:each="dept : ${deptList}" th:value="${dept.dept_num}" th:text="${dept.dept_name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputLanguage" class="col-sm-2 col-form-label" style="font-weight: bold">생성 도메인</label>
+                <div class="col-sm-10">
+                    <textarea id="domainList" name="domainList" cols="50" rows="5">example.net,
+example.org,
+example.co.kr,
+example.xl.to,
+example.ha.do,
+example.po.jo,
+example.qq,
+example.jp,
+example.fr</textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="check_clear" name="check_clear" checked>
+                        <label class="form-check-label" for="check_clear" style="color: orangered; font-weight: bold">
+                            기존 데이터를 삭제
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" id="btn_generate" class="btn btn-primary">생성</button>
+                </div>
+            </div>
+        </form>
+        </div>
+
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </body>
+        <script th:inline="javascript">
+            var actionForm = $("form");
+            var msg = [[${msg}]];
+            console.log(msg);
+            if(msg){
+                $(".modal").modal();
+            }
+
+
+            $("#btn_generate").click(function () {
+                actionForm
+                    .attr("action", "/hr/autoAdd")
+                    .attr("method", "post");
+                actionForm.submit();
+            });
+        </script>
+
+    </th:block>
+</th:block>
