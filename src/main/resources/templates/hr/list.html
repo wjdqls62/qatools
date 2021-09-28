@@ -31,7 +31,7 @@
                 </thead>
             </table>
             <span>
-            <button class="btn btn-danger" id="btn_search">검색</button>
+            <button class="btn btn-danger common-text" id="btn_search">검색</button>
         </span>
         </form>
 
@@ -41,10 +41,10 @@
             <div style="display: inline-block; float: left; padding-bottom: 20px">
                 <form id="form_action_btn">
                 </form>
-                    <button id="btn_remove_all" class="btn btn-danger" style="font-size: 9pt">모두삭제</button>
-                    <button id="btn_remove" class="btn btn-danger" style="font-size: 9pt">삭제</button>
-                    <button id="btn_modify_grade" class="btn btn-secondary"  onclick="openModifyGrade();" style="font-size: 9pt; padding-left: 10px">직급 수정</button>
-                    <button id="btn_modify_dept" class="btn btn-secondary" onclick="openModifyDept();" style="font-size: 9pt">부서 수정</button>
+                    <button id="btn_remove_all" class="btn btn-danger common-text">모두삭제</button>
+                    <button id="btn_remove" class="btn btn-danger common-text">삭제</button>
+                    <button id="btn_modify_grade" class="btn btn-secondary common-text"  onclick="openModifyGrade();" style="padding-left: 10px">직급 수정</button>
+                    <button id="btn_modify_dept" class="btn btn-secondary common-text" onclick="openModifyDept();">부서 수정</button>
             </div>
             <div style="display: inline-block; float:right; padding-bottom: 5px">
                 <a th:if="${dataLength != null}" th:text="'데이터 수 : ' + ${dataLength} + '개'" style="display: inline-block" />
@@ -58,7 +58,7 @@
 
             <table class="table table-striped" id="table_column">
                     <thead align="center" class="table_column">
-                    <tr>
+                    <tr style="font-weight: bold">
                     <td></td>
                     <td>No</td>
                     <td>Email</td>
