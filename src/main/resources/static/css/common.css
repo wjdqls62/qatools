@@ -1,6 +1,29 @@
-.resultLayout, update_time_area, detail_table {padding: 30px; font-size: 9pt;}
-.update_time_area{float: right}
-.requestlayout, hr_data_Result_Layout, generateUserLayout, form-control, modifyDeptLayout, modifyGradeLayout{text-align: center; font-size: 9pt; padding: 30px;}
-.table_column, custom_title{font-weight: bold}
-.btn_popup_close, popup_modify_title{display: flex; justify-content: center;}
+#resultLayout, #update_time_area, #detail_table{
+    padding: 30px; font-size: 9pt;
+}
+
+/*
+TestLink 결과페이지의 업데이트 시간 오른쪽 정렬
+ */
+#update_time_area{
+    float: right
+}
+
+#requestlayout, #hr_data_Result_Layout, #generateUserLayout, #form-control, #modifyDeptLayout, #modifyGradeLayout{
+    font-size: 9pt; padding: 30px;
+}
+
+/*
+직급수정, 부서수정의 Title 및 닫기버튼 Center 정렬
+ */
+#btn_popup_close, #popup_modify_title{
+    display: flex; justify-content: center;
+}
+
+/*
+입력란 일관화된 Style
+ */
+.common-text{
+    font-size: 9pt;
+}
 
