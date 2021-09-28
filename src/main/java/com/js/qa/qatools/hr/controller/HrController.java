@@ -17,6 +17,8 @@ public class HrController {
     private final String DB_MYSQL = "mysql";
     private final String DB_MSSQL = "mssql";
     private final String DB_ORACLE = "oracle";
+    private final String msg_success = "정상처리되었습니다.";
+    private final String msg_fail = "작업이 실패했습니다.";
 
     private final MySQL_HR_Service mysqlService;
 
@@ -67,7 +69,7 @@ public class HrController {
     @PostMapping("/actionModify")
     public String hr_modify(hrDTO dto, RedirectAttributes redirectAttributes){
         mysqlService.hr_modify(dto);
-        redirectAttributes.addFlashAttribute("msg","수정되었습니다.");
+        redirectAttributes.addFlashAttribute("msg",msg_success);
         return "redirect:/hr/list";
     }
 
@@ -92,15 +94,17 @@ public class HrController {
                     generateRequestPageDTO.getDomainList());
         }
 
-        redirectAttributes.addFlashAttribute("msg", "정상 처리되었습니다.");
+        redirectAttributes.addFlashAttribute("msg", msg_success);
 
         return "redirect:/hr/list";
     }
 
-    // 부서추가 화면
+    // 부서추가 동작
     @PostMapping("actionRegisterDept")
-    public String dept_add(deptDTO deptDTO){
+    public String dept_add(deptDTO deptDTO, RedirectAttributes redirectAttributes){
         mysqlService.dept_register(deptDTO);
+        redirectAttributes.addFlashAttribute("msg", msg_success);
+
         return "redirect:/hr/modifyDept";
     }
 
@@ -138,7 +142,7 @@ public class HrController {
             mysqlService.hr_remove(Integer.parseInt(chkList[i]));
         }
 
-        redirectAttributes.addFlashAttribute("msg","모두 삭제되었습니다.");
+        redirectAttributes.addFlashAttribute("msg","선택된 항목이 삭제되었습니다.");
 
         log.info("checkbox remove.");
         return "{}";
@@ -149,39 +153,44 @@ public class HrController {
     public String hr_remove(Integer no, RedirectAttributes redirectAttributes){
         mysqlService.hr_remove(no);
 
-        redirectAttributes.addFlashAttribute("msg","삭제되었습니다.");
+        redirectAttributes.addFlashAttribute("msg",msg_success);
 
         log.info(no + "remove.");
         return "redirect:/hr/list";
     }
 
-    // 부서 수정
+    // 부서수정 동작
     @PostMapping("/actionModifyDept")
     public String dept_modify(deptDTO deptDto, RedirectAttributes redirectAttributes){
-        System.out.println("dept_modify() : "+deptDto);
         mysqlService.dept_modify(deptDto);
+        redirectAttributes.addFlashAttribute("msg", msg_success);
         return "redirect:/hr/modifyDept";
     }
 
-    // 부서 삭제
+    // 부서삭제 동작
     @PostMapping("/actionRemoveDept")
     public String dept_remove(deptDTO deptDto, RedirectAttributes redirectAttributes){
         mysqlService.dept_remove(deptDto.getDept_num());
+        redirectAttributes.addFlashAttribute("msg", msg_success);
+
         return "redirect:/hr/modifyDept";
     }
 
-    // 직급 수정
+    // 직급수정 동작
     @PostMapping("/actionModifyGrade")
     public String grade_modify(gradeDTO gradeDTO, RedirectAttributes redirectAttributes){
         System.out.println("dept_modify() : "+gradeDTO);
         mysqlService.grade_modify(gradeDTO);
+        redirectAttributes.addFlashAttribute("msg", msg_success);
+
         return "redirect:/hr/modifyGrade";
     }
 
-    // 직급 삭제
+    // 직급삭제 동작
     @PostMapping("/actionRemoveGrade")
     public String grade_remove(gradeDTO gradeDTO, RedirectAttributes redirectAttributes){
         mysqlService.grade_remove(gradeDTO.getGrade_num());
+        redirectAttributes.addFlashAttribute("msg", msg_success);
         return "redirect:/hr/modifyGrade";
     }
 
@@ -189,6 +198,7 @@ public class HrController {
     @PostMapping("/actionRegisterGrade")
     public String grade_register(gradeDTO gradeDTO, RedirectAttributes redirectAttributes){
         mysqlService.grade_register(gradeDTO);
+        redirectAttributes.addFlashAttribute("msg", msg_success);
         return "redirect:/hr/modifyGrade";
     }
 }
