@@ -218,8 +218,13 @@
              **/
 
             // 검색
-            var searchForm = $("#searchForm");
+            var searchForm = $("#hr_db_searchForm");
             $("#btn_search").click(function () {
+                var pSize = $("#pSize option:selected").val();
+
+                // 변경된 value를 Hidden값 정의
+                $("#pageSize").val(pSize);
+
                 searchForm
                     .attr("action", "/hr/list")
                     .attr("method", "GET");
@@ -231,12 +236,12 @@
             $("#pSize").change(function () {
                 var pSize = $("#pSize option:selected").val();
 
+                // 변경된 value를 Hidden값 정의
                 $("#pageSize").val(pSize);
 
                 searchForm
                     .attr("action", "/hr/list")
-                    .attr("method", "get")
-                    .attr("target", "")
+                    .attr("method", "GET");
                 searchForm.submit();
             });
 
