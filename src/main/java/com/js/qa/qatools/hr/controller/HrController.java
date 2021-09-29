@@ -126,11 +126,14 @@ public class HrController {
     // 모두삭제
     @PostMapping("/allRemove")
     public String hr_removeAll(RedirectAttributes redirectAttributes){
-        mysqlService.hr_removeAll();
-
-        redirectAttributes.addFlashAttribute("msg","모두 삭제되었습니다.");
-
-        log.info("remove all.");
+        if(mysqlService.hr_getCnt() == 0){
+            redirectAttributes.addFlashAttribute("msg","삭제할 항목이 존재하지 않습니다.");
+            log.info("not exists remove target.");
+        }else{
+            mysqlService.hr_removeAll();
+            log.info("remove all.");
+            redirectAttributes.addFlashAttribute("msg","모두 삭제되었습니다.");
+        }
         return "redirect:/hr/list";
     }
 
