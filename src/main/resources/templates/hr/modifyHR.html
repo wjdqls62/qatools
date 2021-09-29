@@ -188,6 +188,20 @@
         //$(".modal").modal();
       }
 
+      /**
+       * 자바스크립트 변수에 타임리프 변수를 넣음
+       */
+      /*<![CDATA[*/
+      var select_grade_num = [[${result.USR_GRADE.grade_num}]];
+      /*]]>*/
+      $("#inputGrade").val(select_grade_num).prop("selected", true);
+
+      /*<![CDATA[*/
+      var select_dept_num = [[${result.DEPT_INFO.dept_num}]];
+      /*]]>*/
+      $("#inputDept").val(select_dept_num).prop("selected", true);
+
+
       $(function () {
         $('[data-toggle="tooltip"]').tooltip();
       })
