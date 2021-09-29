@@ -59,35 +59,37 @@
             <table class="table table-striped" id="table_column">
                     <thead align="center" class="table_column">
                     <tr style="font-weight: bold">
-                    <td></td>
-                    <td>No</td>
-                    <td>Email</td>
-                    <td>Password</td>
-                    <td>Name</td>
-                    <!-- <td>GRP</td> -->
-                    <!-- <td>GRP_ADMIN</td> -->
-                    <td>DOMAIN</td>
-                    <!-- <td>EARS_USE</td> -->
-                    <!-- <td>EARS_EXPIRE_ACTION</td> -->
-                    <!-- <td>ROUTE_SERVER</td> -->
-                    <td>FORWARD_SERVER</td>
-                    <td>ROUTE_EMAIL</td>
-                    <!-- <td>RUN_MODE</td> -->
-                    <td>FILTER_ORDER</td>
-                    <!-- <td>APT_USE</td> -->
-                    <!-- <td>DETOX_USE</td> -->
-                    <td>LANG</td>
-                    <td>USR_GRADE</td>
-                    <td>USR_DEPT</td>
-                    <!-- <td>USR_MANAGER</td> -->
-                    <!-- <td>IS_VALID</td> -->
-                    <td>LastModified</td>
-                    <td>Created</td>
-                    </tr>
+                        <td></td>
+                        <td></td>
+                        <td>No</td>
+                        <td>Email</td>
+                        <td>Password</td>
+                        <td>Name</td>
+                        <!-- <td>GRP</td> -->
+                        <!-- <td>GRP_ADMIN</td> -->
+                        <td>DOMAIN</td>
+                        <!-- <td>EARS_USE</td> -->
+                        <!-- <td>EARS_EXPIRE_ACTION</td> -->
+                        <!-- <td>ROUTE_SERVER</td> -->
+                        <td>FORWARD_SERVER</td>
+                        <td>ROUTE_EMAIL</td>
+                        <!-- <td>RUN_MODE</td> -->
+                        <td>FILTER_ORDER</td>
+                        <!-- <td>APT_USE</td> -->
+                        <!-- <td>DETOX_USE</td> -->
+                        <td>LANG</td>
+                        <td>USR_GRADE</td>
+                        <td>USR_DEPT</td>
+                        <!-- <td>USR_MANAGER</td> -->
+                        <!-- <td>IS_VALID</td> -->
+                        <td>LastModified</td>
+                        <td>Created</td>
+                        </tr>
                     </thead>
                     <tbody id="hrData" align="center">
                     <th:block th:if="${result != null}">
                         <tr th:if="${result.dtoList != null}" th:each="dto : ${result.dtoList}">
+                            <td></td>
                             <td scope="row">
                                 <input class="form-check-input" type="checkbox" th:value="${dto.NO}" id="check">
                             </td>
