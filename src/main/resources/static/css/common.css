@@ -9,14 +9,14 @@ TestLink 결과페이지의 업데이트 시간 오른쪽 정렬
     float: right
 }
 
-#requestlayout, #hr_data_Result_Layout, #generateUserLayout, #form-control, #modifyDeptLayout, #modifyGradeLayout{
+#requestlayout, #searchLayout, #hr_data_Result_Layout, #generateUserLayout, #form-control, #modifyDeptLayout, #modifyGradeLayout{
     font-size: 9pt; padding: 30px;
 }
 
 /*
 직급수정, 부서수정의 Title 및 닫기버튼 Center 정렬
  */
-#btn_popup_close, #popup_modify_title{
+#btn_popup_close, #popup_modify_title, #hr_db_searchForm{
     display: flex; justify-content: center;
 }
 

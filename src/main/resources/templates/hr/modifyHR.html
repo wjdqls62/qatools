@@ -6,10 +6,11 @@
       <meta charset="UTF-8">
     </head>
     <body>
-    <div id="generateUserLayout" style="width: 700px">
+    <div id="generateUserLayout" style="width: 900px">
       <form>
         <div class="form-group row">
-          <label for="input_emp_no" class="col-sm-2 col-form-label" style="font-weight: bold">No</label>
+          <label for="input_emp_no" class="col-sm-2 col-form-label" style="font-weight: bold">No
+            </label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="input_emp_no" name="NO" th:value="${result.NO}" readonly style="font-size: 9pt">
           </div>
@@ -33,79 +34,93 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="input_grp" class="col-sm-2 col-form-label" style="font-weight: bold">GRP</label>
+          <label for="input_grp" class="col-sm-2 col-form-label" style="font-weight: bold">GRP
+            <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="그룹명" /></label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="input_grp" name="GRP" placeholder="" th:value="${result.GRP}" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
-          <label for="input_grp_admin" class="col-sm-2 col-form-label" style="font-weight: bold">GRP_ADMIN</label>
+          <label for="input_grp_admin" class="col-sm-2 col-form-label" style="font-weight: bold">GRP_ADMIN
+            <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="그룹 관리자 여부(0:일반사용자, 1:관리자" /></label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="input_grp_admin" name="GRP_ADMIN" placeholder="" th:value="${result.GRP_ADMIN}" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
-          <label for="input_grp" class="col-sm-2 col-form-label" style="font-weight: bold">DOMAIN</label>
+          <label for="input_grp" class="col-sm-2 col-form-label" style="font-weight: bold">DOMAIN
+            <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="메일 서버 (암호화|서버|포트) 암호화(0:없음,1:TLS(A),2:TLS,3:SSL)" /></label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="input_domain" name="DOMAIN" th:value="${result.DOMAIN}" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
-          <label for="input_ears_use" class="col-sm-2 col-form-label" style="font-weight: bold">EARS_USE</label>
+          <label for="input_ears_use" class="col-sm-2 col-form-label" style="font-weight: bold">EARS_USE
+            <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="수신자 인증 사용여부(0:사용 안함, 1:사용)" /></label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="input_ears_use" name="EARS_USE" th:value="${result.EARS_USE}" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
-          <label for="input_ears_expire_action" class="col-sm-2 col-form-label" style="font-weight: bold">EARS_EXPIRE_ACTION</label>
+          <label for="input_ears_expire_action" class="col-sm-2 col-form-label" style="font-weight: bold">EARS_EXPIRE_ACTION
+            <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="수신자 인증 만료 시 동작(1:bypass,2:인증차단)" /></label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="input_ears_expire_action" name="EARS_EXPIRE_ACTION" th:value="${result.EARS_EXPIRE_ACTION}" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
-          <label for="input_route_server" class="col-sm-2 col-form-label" style="font-weight: bold">ROUTE_SERVER</label>
+          <label for="input_route_server" class="col-sm-2 col-form-label" style="font-weight: bold">ROUTE_SERVER
+            <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="라우팅 서버 (암호화|서버|포트) 암호화(0:없음,1:TLS(A),2:TLS,3:SSL)" /></label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="input_route_server" name="ROUTE_SERVER" th:value="${result.ROUTE_SERVER}" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
-          <label for="input_forward_server" class="col-sm-2 col-form-label" style="font-weight: bold">FORWARD_SERVER</label>
+          <label for="input_forward_server" class="col-sm-2 col-form-label" style="font-weight: bold">FORWARD_SERVER
+            <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="메일 서버 (암호화|서버|포트)암호화(0:없음,1:TLS(A),2:TLS,3:SSL)" /></label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="input_forward_server" name="FORWARD_SERVER" th:value="${result.FORWARD_SERVER}" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
-          <label for="input_route_email" class="col-sm-2 col-form-label" style="font-weight: bold">ROUTE_EMAIL</label>
+          <label for="input_route_email" class="col-sm-2 col-form-label" style="font-weight: bold">ROUTE_EMAIL
+            <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="라우팅 서버 계정" /></label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="input_route_email" name="ROUTE_EMAIL" th:value="${result.ROUTE_EMAIL}" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
-          <label for="input_run_mode" class="col-sm-2 col-form-label" style="font-weight: bold">RUN_MODE</label>
+          <label for="input_run_mode" class="col-sm-2 col-form-label" style="font-weight: bold">RUN_MODE
+            <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="운영모드(1:차단, 2:통계, 3:태그)" /></label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="input_run_mode" name="RUN_MODE" th:value="${result.RUN_MODE}" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
-          <label for="input_filter_order" class="col-sm-2 col-form-label" style="font-weight: bold">FILTER_ORDER</label>
+          <label for="input_filter_order" class="col-sm-2 col-form-label" style="font-weight: bold">FILTER_ORDER
+            <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="필터 우선 순위 (O:개인허용, u:개인차단, g:그룹허용, G:그룹차단, d:도메인허용, D:도메인차단, a:전체허용, A:전체차단)" /></label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="input_filter_order" name="FILTER_ORDER" th:value="${result.FILTER_ORDER}" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
-          <label for="input_apt_use" class="col-sm-2 col-form-label" style="font-weight: bold">APT_USE</label>
+          <label for="input_apt_use" class="col-sm-2 col-form-label" style="font-weight: bold">APT_USE
+            <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="무해화 사용여부(0:사용 안함, 1:사용)" /></label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="input_apt_use" name="APT_USE" th:value="${result.APT_USE}" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
-          <label for="input_detox_use" class="col-sm-2 col-form-label" style="font-weight: bold">DETOX_USE</label>
+          <label for="input_detox_use" class="col-sm-2 col-form-label" style="font-weight: bold">DETOX_USE
+            <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="샌드박스 사용여부(0:사용안함, 1:탐지, 2:차단)" /></label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="input_detox_use" name="DETOX_USE" th:value="${result.DETOX_USE}" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
-          <label for="input_lang" class="col-sm-2 col-form-label" style="font-weight: bold">LANG</label>
+          <label for="input_lang" class="col-sm-2 col-form-label" style="font-weight: bold">LANG
+            <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="언어 (ko,en,ja)" /></label>
+          </label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="input_lang" name="LANG" th:value="${result.LANG}" style="font-size: 9pt">
           </div>
@@ -169,9 +184,13 @@
       var msg = [[${msg}]];
       console.log(msg);
       if(msg){
-        $(".modal").modal();
+        alert(msg);
+        //$(".modal").modal();
       }
 
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      })
 
       $("#btn_modify").click(function () {
         actionForm
