@@ -44,6 +44,7 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
         // 기존데이터 삭제옵션 활성화시 데이터 제거
         if(isClear != null){
             hrRepository.deleteAll();
+            hrRepository.resetAutoIncreament();
         }
 
         // 직급, 부서정보 로드
@@ -121,6 +122,7 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
     @Override
     public void hr_removeAll() {
         hrRepository.deleteAll();
+        hrRepository.resetAutoIncreament();
     }
 
     @Override
