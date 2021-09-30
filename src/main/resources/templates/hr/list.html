@@ -58,7 +58,7 @@
                     <option th:selected="${pageRequestDTO.pageSize == 100}" value="100">100줄</option>
                 </select>
             </div>
-
+            <form name="checkForm">
             <table class="table table-striped" id="table_column">
                     <thead align="center" class="table_column">
                     <tr style="font-weight: bold">
@@ -126,6 +126,7 @@
                     </tr>
                     </tbody>
                 </table>
+            </form>
         </div >
         <div>
             <ul class="pagination h-100 justify-content-center align-items-center">
@@ -256,9 +257,10 @@
                 if(chkList.length == 0){
                     alert("항목이 체크되지 않았습니다.")
                 }else{
+
                     $.ajax({
-                        url:'/hr/check_remove',
-                        dataType:'json',
+                        url:'/hr/api/check_remove',
+                        dataType:'text',
                         type:'post',
                         data:{
                             chkList : chkList,
@@ -271,13 +273,16 @@
                         },
                         // JSON수신 성공
                         success : function (data) {
+                            alert("정상처리되었습니다.");
                             window.location.reload();
                         },
                         // JSON수신 실패
                         error :function (xhr) {
+                            alert("작업이 실패하였습니다.");
                             window.location.reload();
                         }
                     })
+
                 }
             });
 

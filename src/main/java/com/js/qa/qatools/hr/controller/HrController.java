@@ -137,9 +137,12 @@ public class HrController {
         return "redirect:/hr/list";
     }
 
+    /**
+     * 2021.09.30 @jbson
+     * Method를 RestController로 이동하여 주석처리
     // 체크항목 삭제
     @PostMapping("/check_remove")
-    public String hr_multiple_remove(@RequestParam(value = "chkList[]") String[] chkList,
+    public void hr_multiple_remove(@RequestParam(value = "chkList[]") String[] chkList,
                                      RedirectAttributes redirectAttributes){
         for(int i = 0; i < chkList.length; i++){
             mysqlService.hr_remove(Integer.parseInt(chkList[i]));
@@ -148,8 +151,8 @@ public class HrController {
         redirectAttributes.addFlashAttribute("msg","선택된 항목이 삭제되었습니다.");
 
         log.info("checkbox remove.");
-        return "{}";
     }
+    **/
 
     // 단일항목 삭제
     @PostMapping("/remove")
