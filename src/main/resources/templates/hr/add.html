@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:td="http://www.w3.org/1999/xhtml">
-<th:block th:replace="~{/common_layout/basic :: setContent(~{this::content} )}">
+<th:block th:replace="~{./common_layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
         <head>
             <meta charset="UTF-8">
@@ -50,7 +50,7 @@
 
                 <div class="form-group row">
                     <label for="inputMailServer_encrypt" class="col-sm-2 col-form-label"
-                           style="font-weight: bold">메일서버</label>
+                           style="font-weight: bold">FORWARD_SERVER</label>
                     <div class="col-sm-10" style="display: inline-block">
                         <select id="inputMailServer_encrypt" name="mailserver_encrypt" class="common-text"
                                 style="padding-bottom: 5px;">
@@ -121,16 +121,6 @@
                              title="라우팅 서버 (암호화|서버|포트) 암호화(0:없음,1:TLS(A),2:TLS,3:SSL)"/></label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="input_route_server" name="ROUTE_SERVER"
-                               style="font-size: 9pt">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="input_forward_server" class="col-sm-2 col-form-label" style="font-weight: bold; color: red">FORWARD_SERVER(필수값)
-                        <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom"
-                             data-toggle="tooltip" data-html="true"
-                             title="메일 서버 (암호화|서버|포트)암호화(0:없음,1:TLS(A),2:TLS,3:SSL)"/></label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="input_forward_server" name="FORWARD_SERVER"
                                style="font-size: 9pt">
                     </div>
                 </div>
