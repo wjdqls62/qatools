@@ -6,93 +6,207 @@
             <meta charset="UTF-8">
         </head>
         <body>
-        <div id="generateUserLayout" style="width: 700px">
-        <form>
-            <div class="form-group row">
-                <label for="inputTargetDatabase" class="col-sm-2 col-form-label">데이터베이스</label>
-                <div class="col-sm-10">
-                    <select id="inputTargetDatabase" name="targetDatabase">
-                        <option value="mysql" selected>MySQL</option>
-                        <option value="mssql" disabled>MS-SQL</option>
-                        <option value="oracle" disabled>Oracle</option>
+        <div id="generateUserLayout" style="width: 900px">
+            <form>
+                <div class="form-group row">
+                    <label for="inputTargetDatabase" class="col-sm-2 col-form-label">데이터베이스</label>
+                    <div class="col-sm-10">
+                        <select id="inputTargetDatabase" name="targetDatabase">
+                            <option value="mysql" selected>MySQL</option>
+                            <option value="mssql" disabled>MS-SQL</option>
+                            <option value="oracle" disabled>Oracle</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputCount" class="col-sm-2 col-form-label" style="font-weight: bold">생성 유저수</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control common-text" id="inputCount" name="count"
+                               placeholder="10" value="10">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="input_email" class="col-sm-2 col-form-label" style="font-weight: bold; color: red">Email (필수값)</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="input_email" name="EMAIL"
+                               placeholder="Auto Generate" style="font-size: 9pt;" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="input_password" class="col-sm-2 col-form-label"
+                           style="font-weight: bold">Password</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="input_password" name="PASSWORD(필수값)"
+                               placeholder="Auto Generate" style="font-size: 9pt; color: red" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="input_name" class="col-sm-2 col-form-label" style="font-weight: bold">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="input_name" name="NAME" placeholder="Auto Generate"
+                               style="font-size: 9pt;" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputMailServer_encrypt" class="col-sm-2 col-form-label"
+                           style="font-weight: bold">메일서버</label>
+                    <div class="col-sm-10" style="display: inline-block">
+                        <select id="inputMailServer_encrypt" name="mailserver_encrypt" class="common-text"
+                                style="padding-bottom: 5px;">
+                            <option value="0">0 : 사용안함</option>
+                            <option value="1">1 : TLS(A)</option>
+                            <option value="2">2 : TLS</option>
+                            <option value="3">3 : SSL</option>
+                        </select>
+                        <input type="text" class="form-control common-text" id="inputMailServer_host"
+                               name="mailserver_host" placeholder="Server Host" value="10.53.168.249"
+                               style="padding-bottom: 5px; display: inline-block;">
+                        <input type="text" class="form-control common-text" id="inputMailServer_port"
+                               name="mailserver_port" placeholder="Port" value="25" style="display: inline-block;">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputLanguage" class="col-sm-2 col-form-label" style="font-weight: bold">LANG<img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom"
+                                                                                                                  data-toggle="tooltip" data-html="true" title="언어 (ko,en,ja)"/></label></label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control common-text" id="inputLanguage" name="lang"
+                               placeholder="ko" value="ko">
+                    </div>
+                </div>
+                <div class="form-group row common-text">
+                    <label for="inputfilterMode" class="col-sm-2 col-form-label" style="font-weight: bold">FILTER_ORDER</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control common-text" id="inputfilterMode" name="filtermode"
+                               placeholder="OUaA" value="OUaA">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputfilterMode" class="col-sm-2 col-form-label" style="font-weight: bold">GRP</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control common-text" id="inputGrp" name="grp" placeholder=""
+                               value="">
+                    </div>
+                </div>
+                <div class="form-group row common-text">
+                    <label for="inputfilterMode" class="col-sm-2 col-form-label"
+                           style="font-weight: bold">GRP_ADMIN</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control common-text" id="inputGrpAdmin" name="grp_admin"
+                               placeholder="" value="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="input_ears_use" class="col-sm-2 col-form-label" style="font-weight: bold">EARS_USE
+                        <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom"
+                             data-toggle="tooltip" data-html="true" title="수신자 인증 사용여부(0:사용 안함, 1:사용)"/></label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="input_ears_use" name="EARS_USE"
+                               style="font-size: 9pt">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="input_ears_expire_action" class="col-sm-2 col-form-label" style="font-weight: bold">EARS_EXPIRE_ACTION
+                        <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom"
+                             data-toggle="tooltip" data-html="true" title="수신자 인증 만료 시 동작(1:bypass,2:인증차단)"/></label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="input_ears_expire_action" name="EARS_EXPIRE_ACTION"
+                               style="font-size: 9pt">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="input_route_server" class="col-sm-2 col-form-label" style="font-weight: bold">ROUTE_SERVER
+                        <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom"
+                             data-toggle="tooltip" data-html="true"
+                             title="라우팅 서버 (암호화|서버|포트) 암호화(0:없음,1:TLS(A),2:TLS,3:SSL)"/></label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="input_route_server" name="ROUTE_SERVER"
+                               style="font-size: 9pt">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="input_forward_server" class="col-sm-2 col-form-label" style="font-weight: bold; color: red">FORWARD_SERVER(필수값)
+                        <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom"
+                             data-toggle="tooltip" data-html="true"
+                             title="메일 서버 (암호화|서버|포트)암호화(0:없음,1:TLS(A),2:TLS,3:SSL)"/></label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="input_forward_server" name="FORWARD_SERVER"
+                               style="font-size: 9pt">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="input_route_email" class="col-sm-2 col-form-label" style="font-weight: bold">ROUTE_EMAIL
+                        <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom"
+                             data-toggle="tooltip" data-html="true" title="라우팅 서버 계정"/></label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="input_route_email" name="ROUTE_EMAIL"
+                               style="font-size: 9pt">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="input_run_mode" class="col-sm-2 col-form-label" style="font-weight: bold">RUN_MODE
+                        <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom"
+                             data-toggle="tooltip" data-html="true" title="운영모드(1:차단, 2:통계, 3:태그)"/></label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="input_run_mode" name="RUN_MODE"
+                               style="font-size: 9pt">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="input_filter_order" class="col-sm-2 col-form-label" style="font-weight: bold">FILTER_ORDER
+                        <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom"
+                             data-toggle="tooltip" data-html="true"
+                             title="필터 우선 순위 (O:개인허용, u:개인차단, g:그룹허용, G:그룹차단, d:도메인허용, D:도메인차단, a:전체허용, A:전체차단)"/></label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="input_filter_order" name="FILTER_ORDER"
+                               style="font-size: 9pt">
+                    </div>
+                </div>
+
+
+                <div class="form-group row common-text">
+                    <label for="inputfilterMode" class="col-sm-2 col-form-label"
+                           style="font-weight: bold">APT_USE<img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom"
+                                                                 data-toggle="tooltip" data-html="true" title="무해화 사용여부(0:사용 안함, 1:사용)"/></label>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control common-text" id="inputApt" name="apt" placeholder=""
+                               value="">
+                    </div>
+                </div>
+                <div class="form-group row common-text">
+                    <label for="inputfilterMode" class="col-sm-2 col-form-label"
+                           style="font-weight: bold">DETOX_USE<img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom"
+                                                                   data-toggle="tooltip" data-html="true" title="샌드박스 사용여부(0:사용안함, 1:탐지, 2:차단)"/></label>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control common-text" id="inputDetox" name="detox" placeholder=""
+                               value="">
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="inputGrade" style="font-weight: bold">직급</label>
+                    <select class="form-control common-text" id="inputGrade" name="grade">
+                        <option value="0">무작위</option>
+                        <option th:each="grade : ${gradeList}" th:value="${grade.grade_num}"
+                                th:text="${grade.grade_name}"></option>
                     </select>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputCount" class="col-sm-2 col-form-label" style="font-weight: bold">생성 유저수</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control common-text" id="inputCount" name="count" placeholder="10" value="10">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputMailServer_encrypt" class="col-sm-2 col-form-label" style="font-weight: bold">메일서버</label>
-                <div class="col-sm-10" style="display: inline-block">
-                    <select id="inputMailServer_encrypt" name="mailserver_encrypt" class="common-text" style="padding-bottom: 5px;">
-                        <option value="0">0 : 사용안함</option>
-                        <option value="1">1 : TLS(A)</option>
-                        <option value="2">2 : TLS</option>
-                        <option value="3">3 : SSL</option>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="inputDept"
+                           style="display: inline-block; font-weight: bold;">부서</label>
+                    <select class="form-control common-text" id="inputDept" name="dept">
+                        <option value="0">무작위</option>
+                        <option th:each="dept : ${deptList}" th:value="${dept.dept_num}"
+                                th:text="${dept.dept_name}"></option>
                     </select>
-                    <input type="text" class="form-control common-text" id="inputMailServer_host" name="mailserver_host" placeholder="Server Host" value="10.53.168.249" style="padding-bottom: 5px; display: inline-block;" >
-                    <input type="text" class="form-control common-text" id="inputMailServer_port" name="mailserver_port" placeholder="Port" value="25" style="display: inline-block;" >
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputLanguage" class="col-sm-2 col-form-label" style="font-weight: bold">사용자 언어</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control common-text" id="inputLanguage" name="lang" placeholder="ko" value="ko">
-                </div>
-            </div>
-            <div class="form-group row common-text">
-                <label for="inputfilterMode" class="col-sm-2 col-form-label" style="font-weight: bold">필터모드</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control common-text" id="inputfilterMode" name="filtermode" placeholder="OUaA" value="OUaA">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputfilterMode" class="col-sm-2 col-form-label" style="font-weight: bold">그룹</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control common-text" id="inputGrp" name="grp" placeholder="" value="">
-                </div>
-            </div>
-            <div class="form-group row common-text">
-                <label for="inputfilterMode" class="col-sm-2 col-form-label" style="font-weight: bold">그룹관리자</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control common-text" id="inputGrpAdmin" name="grp_admin" placeholder="" value="">
-                </div>
-            </div>
-            <div class="form-group row common-text">
-                <label for="inputfilterMode" class="col-sm-2 col-form-label" style="font-weight: bold">무해화(APT)</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control common-text" id="inputApt" name="apt" placeholder="" value="">
-                </div>
-            </div>
-            <div class="form-group row common-text">
-                <label for="inputfilterMode" class="col-sm-2 col-form-label" style="font-weight: bold">샌드박스(Detox)</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control common-text" id="inputDetox" name="detox" placeholder="" value="">
-                </div>
-            </div>
 
-
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="inputGrade" style="font-weight: bold">직급</label>
-                <select class="form-control common-text" id="inputGrade" name="grade">
-                    <option value="0">무작위</option>
-                    <option th:each="grade : ${gradeList}" th:value="${grade.grade_num}" th:text="${grade.grade_name}"></option>
-                </select>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="inputDept" style="display: inline-block; font-weight: bold;">부서</label>
-                <select class="form-control common-text" id="inputDept" name="dept">
-                    <option value="0">무작위</option>
-                    <option th:each="dept : ${deptList}" th:value="${dept.dept_num}" th:text="${dept.dept_name}"></option>
-                </select>
-            </div>
-
-            <div class="form-group row">
-                <label for="inputLanguage" class="col-sm-2 col-form-label" style="font-weight: bold">생성 도메인</label>
-                <div class="col-sm-10">
+                <div class="form-group row">
+                    <label for="inputLanguage" class="col-sm-2 col-form-label" style="font-weight: bold">생성 도메인</label>
+                    <div class="col-sm-10">
                     <textarea id="domainList" name="domainList" class="common-text" cols="50" rows="5">example.net,
 example.org,
 example.co.kr,
@@ -102,26 +216,27 @@ example.po.jo,
 example.qq,
 example.jp,
 example.fr</textarea>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="check_clear" name="check_clear" checked>
-                        <label class="form-check-label" for="check_clear" style="color: orangered; font-weight: bold">
-                            기존 데이터를 삭제
-                        </label>
                     </div>
                 </div>
-            </div>
-
-
-            <div class="form-group row">
-                <div class="col-sm-10">
-                    <button type="submit" id="btn_generate" class="btn btn-primary">생성</button>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="check_clear" name="check_clear" checked>
+                            <label class="form-check-label" for="check_clear"
+                                   style="color: orangered; font-weight: bold">
+                                기존 데이터를 삭제
+                            </label>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </form>
+
+
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <button type="submit" id="btn_generate" class="btn btn-primary">생성</button>
+                    </div>
+                </div>
+            </form>
         </div>
 
         <div class="modal" tabindex="-1" role="dialog">
@@ -147,7 +262,7 @@ example.fr</textarea>
             var actionForm = $("form");
             var msg = [[${msg}]];
             console.log(msg);
-            if(msg){
+            if (msg) {
                 $(".modal").modal();
             }
 
@@ -158,6 +273,11 @@ example.fr</textarea>
                     .attr("method", "post");
                 actionForm.submit();
             });
+
+            // 툴팁 처리
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            })
         </script>
 
     </th:block>
