@@ -21,7 +21,7 @@ public class hrDTO {
     private String GRP;
     private Character GRP_ADMIN;
     private String DOMAIN;
-    private String EARS_USE;
+    private Character EARS_USE;
     private Character EARS_EXPIRE_ACTION;
     private String ROUTE_SERVER;
     private String FORWARD_SERVER;
