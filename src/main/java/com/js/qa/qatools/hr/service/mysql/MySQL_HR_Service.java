@@ -14,7 +14,7 @@ public interface MySQL_HR_Service {
     Integer hr_register(hrDTO dto);
     void hr_auto_register(int count,
                           String isClear,
-                          String filterMode,
+                          String filterOrder,
                           String lang,
                           Integer grade,
                           Integer dept,
@@ -22,10 +22,17 @@ public interface MySQL_HR_Service {
                           String mailserver_host,
                           String mailserver_port,
                           String grp,
-                          Character grp_admin,
+                          Character grpAdmin,
                           Character apt,
                           Character detox,
-                          String domainList);
+                          String domainList,
+                          String passwordType,
+                          Character ears_use,
+                          Character earsExpireAction,
+                          String routeServer,
+                          String routeEmail,
+                          Character runMode,
+                          String customPassword);
     hrDTO hr_read(Integer emp_no);
     void hr_remove(Integer emp_no);
     void hr_removeAll();
@@ -69,25 +76,25 @@ public interface MySQL_HR_Service {
         qa_test_hr entity = qa_test_hr.builder()
                 .EMAIL(dto.getEMAIL())
                 .PASSWORD(dto.getPASSWORD())
-                .NO(dto.getNO())
-                .NAME(dto.getNAME())
-                .GRP(dto.getGRP())
-                .GRP_ADMIN(dto.getGRP_ADMIN())
-                .DOMAIN(dto.getDOMAIN())
-                .EARS_USE(dto.getEARS_USE())
-                .EARS_EXPIRE_ACTION(dto.getEARS_EXPIRE_ACTION())
-                .ROUTE_SERVER(dto.getROUTE_SERVER())
-                .FORWARD_SERVER(dto.getFORWARD_SERVER())
-                .ROUTE_EMAIL(dto.getROUTE_EMAIL())
-                .RUN_MODE(dto.getRUN_MODE())
-                .FILTER_ORDER(dto.getFILTER_ORDER())
-                .APT_USE(dto.getAPT_USE())
-                .DETOX_USE(dto.getDETOX_USE())
-                .LANG(dto.getLANG())
-                .USR_GRADE(dto.getUSR_GRADE())
-                .DEPT_INFO(dto.getDEPT_INFO())
-                .USR_MANAGER(dto.getUSR_MANAGER())
-                .IS_VALID(dto.getIS_VALID())
+                .no(dto.getNO())
+                .name(dto.getNAME())
+                .grp(dto.getGRP())
+                .grpAdmin(dto.getGRP_ADMIN())
+                .domain(dto.getDOMAIN())
+                .earsUse(dto.getEARS_USE())
+                .earsExpireAction(dto.getEARS_EXPIRE_ACTION())
+                .routeServer(dto.getROUTE_SERVER())
+                .forwardServer(dto.getFORWARD_SERVER())
+                .routeEmail(dto.getROUTE_EMAIL())
+                .runMode(dto.getRUN_MODE())
+                .filterOrder(dto.getFILTER_ORDER())
+                .aptUse(dto.getAPT_USE())
+                .detoxUse(dto.getDETOX_USE())
+                .lang(dto.getLANG())
+                .usrGrade(dto.getUSR_GRADE())
+                .usrDept(dto.getDEPT_INFO())
+                .usrManager(dto.getUSR_MANAGER())
+                .isValid(dto.getIS_VALID())
                 .build();
 
         return entity;
@@ -116,25 +123,25 @@ public interface MySQL_HR_Service {
         hrDTO dto = hrDTO.builder()
                 .EMAIL(entity.getEMAIL())
                 .PASSWORD(entity.getPASSWORD())
-                .NO(entity.getNO())
-                .NAME(entity.getNAME())
-                .GRP(entity.getGRP())
-                .GRP_ADMIN(entity.getGRP_ADMIN())
-                .DOMAIN(entity.getDOMAIN())
-                .EARS_USE(entity.getEARS_USE())
-                .EARS_EXPIRE_ACTION(entity.getEARS_EXPIRE_ACTION())
-                .ROUTE_SERVER(entity.getROUTE_SERVER())
-                .FORWARD_SERVER(entity.getFORWARD_SERVER())
-                .ROUTE_EMAIL(entity.getROUTE_EMAIL())
-                .RUN_MODE(entity.getRUN_MODE())
-                .FILTER_ORDER(entity.getFILTER_ORDER())
-                .APT_USE(entity.getAPT_USE())
-                .DETOX_USE(entity.getDETOX_USE())
-                .LANG(entity.getLANG())
-                .USR_GRADE(entity.getUSR_GRADE())
-                .DEPT_INFO(entity.getDEPT_INFO())
-                .USR_MANAGER(entity.getUSR_MANAGER())
-                .IS_VALID(entity.getIS_VALID())
+                .NO(entity.getNo())
+                .NAME(entity.getName())
+                .GRP(entity.getGrp())
+                .GRP_ADMIN(entity.getGrpAdmin())
+                .DOMAIN(entity.getDomain())
+                .EARS_USE(entity.getEarsUse())
+                .EARS_EXPIRE_ACTION(entity.getEarsExpireAction())
+                .ROUTE_SERVER(entity.getRouteServer())
+                .FORWARD_SERVER(entity.getForwardServer())
+                .ROUTE_EMAIL(entity.getRouteEmail())
+                .RUN_MODE(entity.getRunMode())
+                .FILTER_ORDER(entity.getFilterOrder())
+                .APT_USE(entity.getAptUse())
+                .DETOX_USE(entity.getDetoxUse())
+                .LANG(entity.getLang())
+                .USR_GRADE(entity.getUsrGrade())
+                .DEPT_INFO(entity.getUsrDept())
+                .USR_MANAGER(entity.getUsrManager())
+                .IS_VALID(entity.getIsValid())
                 .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
                 .build();

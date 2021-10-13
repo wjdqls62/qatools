@@ -6,8 +6,11 @@ import org.springframework.stereotype.Service;
 public class GenerateUser {
 
     // 패스워드 생성
-    public int getneratePassword() {
-        return (int) (Math.random() * 1000000 + 9999999);
+    public String getneratePassword(String passwordType, String customPassword) {
+        if(passwordType.equals("auto")){
+            return String.valueOf((int)(Math.random() * 1000000 + 9999999));
+        }
+        return customPassword;
     }
 
     // 이메일 길이만큼 이름 생성

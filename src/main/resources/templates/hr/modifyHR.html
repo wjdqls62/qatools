@@ -8,6 +8,10 @@
     <body>
     <div id="generateUserLayout" style="width: 900px">
       <form>
+        <input type="hidden" name="page" th:value="${pageRequestDTO.page}">
+        <input type="hidden" id="pageSize" name="pageSize" th:value="${pageRequestDTO.pageSize}">
+        <input type="hidden" name="sortName" th:value="${pageRequestDTO.sortName}">
+        <input type="hidden" name="sortType" th:value="${pageRequestDTO.sortType}">
         <div class="form-group row">
           <label for="input_emp_no" class="col-sm-2 col-form-label" style="font-weight: bold">No
             </label>
@@ -44,7 +48,7 @@
           <label for="input_grp_admin" class="col-sm-2 col-form-label" style="font-weight: bold">GRP_ADMIN
             <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="그룹 관리자 여부(0:일반사용자, 1:관리자" /></label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="input_grp_admin" name="GRP_ADMIN" placeholder="" th:value="${result.GRP_ADMIN}" style="font-size: 9pt">
+            <input type="text" class="form-control" id="input_grp_admin" name="GRP_ADMIN" placeholder="" th:value="${result.GRP_ADMIN}" maxlength="1" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
@@ -58,14 +62,14 @@
           <label for="input_ears_use" class="col-sm-2 col-form-label" style="font-weight: bold">EARS_USE
             <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="수신자 인증 사용여부(0:사용 안함, 1:사용)" /></label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="input_ears_use" name="EARS_USE" th:value="${result.EARS_USE}" style="font-size: 9pt">
+            <input type="text" class="form-control" id="input_ears_use" name="EARS_USE" th:value="${result.EARS_USE}" maxlength="1" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
           <label for="input_ears_expire_action" class="col-sm-2 col-form-label" style="font-weight: bold">EARS_EXPIRE_ACTION
             <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="수신자 인증 만료 시 동작(1:bypass,2:인증차단)" /></label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="input_ears_expire_action" name="EARS_EXPIRE_ACTION" th:value="${result.EARS_EXPIRE_ACTION}" style="font-size: 9pt">
+            <input type="text" class="form-control" id="input_ears_expire_action" name="EARS_EXPIRE_ACTION" th:value="${result.EARS_EXPIRE_ACTION}" maxlength="1" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
@@ -93,7 +97,7 @@
           <label for="input_run_mode" class="col-sm-2 col-form-label" style="font-weight: bold">RUN_MODE
             <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="운영모드(1:차단, 2:통계, 3:태그)" /></label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="input_run_mode" name="RUN_MODE" th:value="${result.RUN_MODE}" style="font-size: 9pt">
+            <input type="text" class="form-control" id="input_run_mode" name="RUN_MODE" th:value="${result.RUN_MODE}" maxlength="1" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
@@ -107,14 +111,14 @@
           <label for="input_apt_use" class="col-sm-2 col-form-label" style="font-weight: bold">APT_USE
             <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="무해화 사용여부(0:사용 안함, 1:사용)" /></label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="input_apt_use" name="APT_USE" th:value="${result.APT_USE}" style="font-size: 9pt">
+            <input type="text" class="form-control" id="input_apt_use" name="APT_USE" th:value="${result.APT_USE}" maxlength="1" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">
           <label for="input_detox_use" class="col-sm-2 col-form-label" style="font-weight: bold">DETOX_USE
             <img th:src="@{/images/detail.png}" style="padding-left: 4px;" data-placement="bottom" data-toggle="tooltip" data-html="true" title="샌드박스 사용여부(0:사용안함, 1:탐지, 2:차단)" /></label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="input_detox_use" name="DETOX_USE" th:value="${result.DETOX_USE}" style="font-size: 9pt">
+            <input type="text" class="form-control" id="input_detox_use" name="DETOX_USE" th:value="${result.DETOX_USE}" maxlength="1" style="font-size: 9pt">
           </div>
         </div>
         <div class="form-group row">

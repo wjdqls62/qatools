@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +35,31 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
         qa_test_hr entity = dtoToEntity(dto);
 
         hrRepository.save(entity);
-        return entity.getNO();
+        return entity.getNo();
     }
 
     @Override
-    public void hr_auto_register(int count, String isClear, String filterMode, String lang, Integer grade, Integer dept, String mailserver_encrypt, String mailserver_host, String mailserver_port, String grp, Character grp_admin, Character apt, Character detox, String domainList) {
+    public void hr_auto_register(int count,
+                                 String isClear,
+                                 String filterMode,
+                                 String lang,
+                                 Integer grade,
+                                 Integer dept,
+                                 String mailserver_encrypt,
+                                 String mailserver_host,
+                                 String mailserver_port,
+                                 String grp,
+                                 Character grp_admin,
+                                 Character apt,
+                                 Character detox,
+                                 String domainList,
+                                 String passwordType,
+                                 Character earsUse,
+                                 Character earExpireAction,
+                                 String routeServer,
+                                 String routeEmail,
+                                 Character runMode,
+                                 String customPassword) {
         // 기존데이터 삭제옵션 활성화시 데이터 제거
         if(isClear != null){
             hrRepository.deleteAll();
@@ -59,17 +78,17 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
 
             hrDTO tempHrDTO = hrDTO.builder()
                     .EMAIL(String.valueOf(buffer))
-                    .PASSWORD(String.valueOf(user.getneratePassword()))
+                    .PASSWORD(String.valueOf(user.getneratePassword(passwordType, customPassword)))
                     .NAME(user.generateName())
                     .GRP(grp)
                     .GRP_ADMIN(grp_admin)
                     .DOMAIN((buffer.substring(buffer.indexOf("@")+1, buffer.length())))
-                    .EARS_USE(null)
-                    .EARS_EXPIRE_ACTION(null)
-                    .ROUTE_SERVER(null)
+                    .EARS_USE(earsUse)
+                    .EARS_EXPIRE_ACTION(earExpireAction)
+                    .ROUTE_SERVER(routeServer)
                     .FORWARD_SERVER(mailserver_encrypt + "|" + mailserver_host + "|" + mailserver_port)
                     .ROUTE_EMAIL(String.valueOf(buffer))
-                    .RUN_MODE(null)
+                    .RUN_MODE(runMode)
                     .FILTER_ORDER(filterMode)
                     .APT_USE(apt)
                     .DETOX_USE(detox)
@@ -98,7 +117,8 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
 
     @Override
     public PageResultDTO<hrDTO, qa_test_hr> getList(PageRequestDTO requestDTO) {
-        Pageable pageable = requestDTO.getPageable(Sort.by("NO").descending());
+
+        Pageable pageable = requestDTO.getPageable();
 
         BooleanBuilder booleanBuilder = getSearch(requestDTO);
 
@@ -131,24 +151,24 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
         qa_test_hr entity = hrRepository.getById(dto.getNO());
         entity.setEMAIL(dto.getEMAIL());
         entity.setPASSWORD(dto.getPASSWORD());
-        entity.setNAME(dto.getNAME());
-        entity.setGRP(dto.getGRP());
-        entity.setGRP_ADMIN(dto.getGRP_ADMIN());
-        entity.setDOMAIN(dto.getDOMAIN());
-        entity.setEARS_USE(dto.getEARS_USE());
-        entity.setEARS_EXPIRE_ACTION(dto.getEARS_EXPIRE_ACTION());
-        entity.setROUTE_SERVER(dto.getROUTE_SERVER());
-        entity.setFORWARD_SERVER(dto.getFORWARD_SERVER());
-        entity.setROUTE_EMAIL(dto.getROUTE_EMAIL());
-        entity.setRUN_MODE(dto.getRUN_MODE());
-        entity.setFILTER_ORDER(dto.getFILTER_ORDER());
-        entity.setAPT_USE(dto.getAPT_USE());
-        entity.setDETOX_USE(dto.getDETOX_USE());
-        entity.setLANG(dto.getLANG());
-        entity.setUSR_GRADE(dto.getUSR_GRADE());
-        entity.setDEPT_INFO(dto.getDEPT_INFO());
-        entity.setUSR_MANAGER(dto.getUSR_MANAGER());
-        entity.setIS_VALID(dto.getIS_VALID());
+        entity.setName(dto.getNAME());
+        entity.setGrp(dto.getGRP());
+        entity.setGrpAdmin(dto.getGRP_ADMIN());
+        entity.setDomain(dto.getDOMAIN());
+        entity.setEarsUse(dto.getEARS_USE());
+        entity.setEarsExpireAction(dto.getEARS_EXPIRE_ACTION());
+        entity.setRouteServer(dto.getROUTE_SERVER());
+        entity.setForwardServer(dto.getFORWARD_SERVER());
+        entity.setRouteEmail(dto.getROUTE_EMAIL());
+        entity.setRunMode(dto.getRUN_MODE());
+        entity.setFilterOrder(dto.getFILTER_ORDER());
+        entity.setAptUse(dto.getAPT_USE());
+        entity.setDetoxUse(dto.getDETOX_USE());
+        entity.setLang(dto.getLANG());
+        entity.setUsrGrade(dto.getUSR_GRADE());
+        entity.setUsrDept(dto.getDEPT_INFO());
+        entity.setUsrManager(dto.getUSR_MANAGER());
+        entity.setIsValid(dto.getIS_VALID());
 
         hrRepository.save(entity);
     }
@@ -239,7 +259,7 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
 
         String keyword = requestDTO.getKeyword();
 
-        BooleanExpression expression = qa_test_hr.NO.gt(0L);
+        BooleanExpression expression = qa_test_hr.no.gt(0L);
 
         booleanBuilder.and(expression);
 

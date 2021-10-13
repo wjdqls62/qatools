@@ -30,6 +30,14 @@ public class HrController {
             pageRequestDTO.setDbType(DB_MYSQL);
         }
 
+        if(pageRequestDTO.getSortName() == null){
+            pageRequestDTO.setSortName("No");
+        }
+
+        if(pageRequestDTO.getSortType() == null){
+            pageRequestDTO.setSortType("asc");
+        }
+
         if(pageRequestDTO.getDbType().equals(DB_MYSQL)){
             model.addAttribute("result", mysqlService.getList(pageRequestDTO));
             model.addAttribute("dataLength", mysqlService.hr_getCnt());
@@ -56,8 +64,9 @@ public class HrController {
 
     // 수정화면
     @GetMapping("/modifyHR")
-    public void hr_modify(Model model, Integer emp_no){
+    public void hr_modify(Model model, Integer emp_no, @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO){
         System.out.println("emp_no : " + emp_no);
+
         model.addAttribute("gradeList", mysqlService.grade_getList());
         model.addAttribute("deptList", mysqlService.dept_getList());
         model.addAttribute("result", mysqlService.hr_read(emp_no));
@@ -67,8 +76,13 @@ public class HrController {
 
     // HR 수정
     @PostMapping("/actionModify")
-    public String hr_modify(hrDTO dto, RedirectAttributes redirectAttributes){
+    public String hr_modify(hrDTO dto, RedirectAttributes redirectAttributes, @ModelAttribute("pageRequestDTO")PageRequestDTO pageRequestDTO){
         mysqlService.hr_modify(dto);
+
+        redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("pageSize", pageRequestDTO.getPageSize());
+        redirectAttributes.addAttribute("sortName", pageRequestDTO.getSortName());
+        redirectAttributes.addAttribute("sortType", pageRequestDTO.getSortType());
         redirectAttributes.addFlashAttribute("msg",msg_success);
         return "redirect:/hr/list";
     }
@@ -80,18 +94,25 @@ public class HrController {
             mysqlService.hr_auto_register(
                     Integer.parseInt(generateRequestPageDTO.getCount()),
                     generateRequestPageDTO.getCheck_clear(),
-                    generateRequestPageDTO.getFiltermode(),
+                    generateRequestPageDTO.getFILTER_ORDER(),
                     generateRequestPageDTO.getLang(),
                     generateRequestPageDTO.getGrade(),
                     generateRequestPageDTO.getDept(),
                     generateRequestPageDTO.getMailserver_encrypt(),
                     generateRequestPageDTO.getMailserver_host(),
                     generateRequestPageDTO.getMailserver_port(),
-                    generateRequestPageDTO.getGrp(),
-                    generateRequestPageDTO.getGrp_admin(),
-                    generateRequestPageDTO.getApt(),
-                    generateRequestPageDTO.getDetox(),
-                    generateRequestPageDTO.getDomainList());
+                    generateRequestPageDTO.getGRP(),
+                    generateRequestPageDTO.getGRP_ADMIN(),
+                    generateRequestPageDTO.getAPT(),
+                    generateRequestPageDTO.getDETOX(),
+                    generateRequestPageDTO.getDomainList(),
+                    generateRequestPageDTO.getPasswordType(),
+                    generateRequestPageDTO.getEARS_USE(),
+                    generateRequestPageDTO.getEARS_EXPIRE_ACTION(),
+                    generateRequestPageDTO.getROUTE_SERVER(),
+                    generateRequestPageDTO.getROUTE_EMAIL(),
+                    generateRequestPageDTO.getRUN_MODE(),
+                    generateRequestPageDTO.getCustomPassword());
         }
 
         redirectAttributes.addFlashAttribute("msg", msg_success);

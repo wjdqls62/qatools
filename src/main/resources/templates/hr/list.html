@@ -9,164 +9,218 @@
 
         <div class="searchLayout" style="padding-bottom: 20px">
             <form id="hr_db_searchForm" action="/hr/list" method="get">
-                <input type="hidden" name="page" value="1">
-                <input type="hidden" id="pageSize" name="pageSize" value="10">
+                <input type="hidden" id="page" name="page" th:value="${pageRequestDTO.page}">
+                <input type="hidden" id="pageSize" name="pageSize" th:value="${pageRequestDTO.pageSize}">
+                <input type="hidden" id="sortName" name="sortName" th:value="${pageRequestDTO.sortName}">
+                <input type="hidden" id="sortType" name="sortType" th:value="${pageRequestDTO.sortType}">
 
                 <table class="common-text" style="border: 1px; text-align: center">
-                <thead>
-                <tr>
-                    <td><h3>Database</h3></td>
-                </tr>
-                </thead>
+                    <thead>
+                    <tr>
+                        <td><h3>Database</h3></td>
+                    </tr>
+                    </thead>
                     <td>
                         <label>
-                            <input class="common-text" type="radio" th:checked="${pageRequestDTO.dbType == 'mysql'}" name="dbType" value="mysql"> MySQL
+                            <input class="common-text" type="radio" th:checked="${pageRequestDTO.dbType == 'mysql'}"
+                                   name="dbType" value="mysql"> MySQL
                         </label>
                         <label>
-                            <input class="common-text" type="radio" th:checked="${pageRequestDTO.dbType == 'mssql'}" name="dbType" value="mssql" disabled> MS-SQL
+                            <input class="common-text" type="radio" th:checked="${pageRequestDTO.dbType == 'mssql'}"
+                                   name="dbType" value="mssql" disabled> MS-SQL
                         </label>
                         <label>
-                            <input class="common-text" type="radio" th:checked="${pageRequestDTO.dbType == 'oracle'}" name="dbType" value="oracle" disabled> Oracle
+                            <input class="common-text" type="radio" th:checked="${pageRequestDTO.dbType == 'oracle'}"
+                                   name="dbType" value="oracle" disabled> Oracle
                         </label>
                     </td>
                     <tr>
-                        <td><button class="btn btn-danger common-text" id="btn_search">검색</button></td>
+                        <td>
+                            <button class="btn btn-danger common-text" id="btn_search">검색</button>
+                        </td>
                     </tr>
-            </table>
-            <div>
+                </table>
+                <div>
 
-        </div>
-        </form>
+                </div>
+            </form>
 
-        <div class="resultLayout" id="hr_data_Result_Layout">
+            <div class="resultLayout" id="hr_data_Result_Layout">
 
 
-            <div style="display: inline-block; float: left; padding-bottom: 20px">
-                <form id="form_action_btn">
-                </form>
+                <div style="display: inline-block; float: left; padding-bottom: 20px">
+                    <form id="form_action_btn">
+                    </form>
                     <button id="btn_remove_all" class="btn btn-danger common-text">모두삭제</button>
                     <button id="btn_remove" class="btn btn-danger common-text">삭제</button>
-                    <button id="btn_modify_grade" class="btn btn-secondary common-text"  onclick="openModifyGrade();" style="padding-left: 10px">직급 수정</button>
-                    <button id="btn_modify_dept" class="btn btn-secondary common-text" onclick="openModifyDept();">부서 수정</button>
-            </div>
-            <div style="display: inline-block; float:right; padding-bottom: 5px">
-                <a th:if="${dataLength != null}" th:text="'데이터 수 : ' + ${dataLength} + '개'" style="display: inline-block" />
-                <select name="pSize" id="pSize" style="display: inline-block">
-                    <option th:selected="${pageRequestDTO.pageSize == 10}" value="10">10줄</option>
-                    <option th:selected="${pageRequestDTO.pageSize == 30}" value="30">30줄</option>
-                    <option th:selected="${pageRequestDTO.pageSize == 50}" value="50">50줄</option>
-                    <option th:selected="${pageRequestDTO.pageSize == 100}" value="100">100줄</option>
-                </select>
-            </div>
-            <form name="checkForm">
-            <table class="table table-striped" id="table_column">
-                    <thead align="center" class="table_column">
-                    <tr style="font-weight: bold">
-                        <td></td>
-                        <td></td>
-                        <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="인덱스">No</td>
-                        <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="이메일">Email</td>
-                        <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="비밀번호">Password</td>
-                        <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="이름">Name</td>
-                        <!-- <td>GRP</td> -->
-                        <!-- <td>GRP_ADMIN</td> -->
-                        <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="도메인">DOMAIN</td>
-                        <!-- <td>EARS_USE</td> -->
-                        <!-- <td>EARS_EXPIRE_ACTION</td> -->
-                        <!-- <td>ROUTE_SERVER</td> -->
-                        <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="메일 서버">FORWARD_SERVER</td>
-                        <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="라우팅 서버 계정">ROUTE_EMAIL</td>
-                        <!-- <td>RUN_MODE</td> -->
-                        <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="필터 우선 순위">FILTER_ORDER</td>
-                        <!-- <td>APT_USE</td> -->
-                        <!-- <td>DETOX_USE</td> -->
-                        <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="사용자 언어">LANG</td>
-                        <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="직급">USR_GRADE</td>
-                        <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="소속 부서">USR_DEPT</td>
-                        <!-- <td>USR_MANAGER</td> -->
-                        <!-- <td>IS_VALID</td> -->
-                        <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="마지막 수정일">LastModified</td>
-                        <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="생성일">Created</td>
-                        </tr>
-                    </thead>
-                    <tbody id="hrData" align="center">
-                    <th:block th:if="${result != null}">
-                        <tr th:if="${result.dtoList != null}" th:each="dto : ${result.dtoList}">
+                    <button id="btn_modify_grade" class="btn btn-secondary common-text" onclick="openModifyGrade();"
+                            style="padding-left: 10px">직급 수정
+                    </button>
+                    <button id="btn_modify_dept" class="btn btn-secondary common-text" onclick="openModifyDept();">부서
+                        수정
+                    </button>
+                </div>
+                <div style="display: inline-block; float:right; padding-bottom: 5px">
+                    <div>
+                        <div>
+                            <b>총 데이터 수 : </b><a th:if="${dataLength != null}" th:text="${dataLength} + '개'"
+                               style="display: inline-block"/>
+                        </div>
+                        <div>
+                            <b>페이지당 표시갯수 : </b>
+                            <select name="pSize" id="pSize" style="display: inline-block">
+                                <option th:selected="${pageRequestDTO.pageSize == 10}" value="10">10줄</option>
+                                <option th:selected="${pageRequestDTO.pageSize == 30}" value="30">30줄</option>
+                                <option th:selected="${pageRequestDTO.pageSize == 50}" value="50">50줄</option>
+                                <option th:selected="${pageRequestDTO.pageSize == 100}" value="100">100줄</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <b>데이터 정렬 : </b>
+                        <select name="sType" id="sType" style="display: inline-block">
+                            <option th:selected="${pageRequestDTO.sortType == 'asc'}" value="asc">오름차순</option>
+                            <option th:selected="${pageRequestDTO.sortType == 'desc'}" value="desc">내림차순</option>
+                        </select>
+                        <select name="sName" id="sName" style="display: inline-block">
+                            <option th:selected="${pageRequestDTO.sortName == 'NO'}" value="no">No</option>
+                            <option th:selected="${pageRequestDTO.sortName == 'PASSWORD'}" value="PASSWORD">Password</option>
+                            <option th:selected="${pageRequestDTO.sortName == 'name'}" value="name">NAME</option>
+                            <option th:selected="${pageRequestDTO.sortName == 'domain'}" value="domain">Domain</option>
+                            <option th:selected="${pageRequestDTO.sortName == 'forwardServer'}" value="forwardServer">FORWARD_SERVER</option>
+                            <option th:selected="${pageRequestDTO.sortName == 'routeEmail'}" value="routeEmail">ROUTE_EMAIL</option>
+                            <option th:selected="${pageRequestDTO.sortName == 'filterOrder'}" value="filterOrder">FILTER_ORDER</option>
+                            <option th:selected="${pageRequestDTO.sortName == 'lang'}" value="lang">LANG</option>
+                            <option th:selected="${pageRequestDTO.sortName == 'usrGrade'}" value="usrGrade">USR_GRADE</option>
+                            <option th:selected="${pageRequestDTO.sortName == 'usrDept'}" value="usrDept">USR_DEPT</option>
+                        </select>
+                    </div>
+
+                </div>
+                <form name="checkForm">
+                    <table class="table table-striped" id="table_column">
+                        <thead align="center" class="table_column">
+                        <tr style="font-weight: bold">
                             <td></td>
-                            <td scope="row">
-                                <input class="form-check-input" type="checkbox" th:value="${dto.NO}" id="check">
+                            <td></td>
+                            <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="인덱스">No</td>
+                            <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="이메일">Email</td>
+                            <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="비밀번호">Password
                             </td>
-                            <td scope="row"><a th:href="@{/hr/modifyHR(emp_no = ${dto.NO})}">[[${dto.NO}]]</a></td>
-                            <td scope="row">[[${dto.EMAIL}]]</td>
-                            <td scope="row">[[${dto.PASSWORD}]]</td>
-                            <td scope="row">[[${dto.NAME}]]</td>
-                            <!-- <td scope="row">[[${dto.GRP}]]</td> -->
-                            <!-- <td scope="row">[[${dto.GRP_ADMIN}]]</td> -->
-                            <td scope="row">[[${dto.DOMAIN}]]</td>
-                            <!-- <td scope="row">[[${dto.EARS_USE}]]</td> -->
-                            <!-- <td scope="row">[[${dto.EARS_EXPIRE_ACTION}]]</td> -->
-                            <!-- <td scope="row">[[${dto.ROUTE_SERVER}]]</td> -->
-                            <td scope="row">[[${dto.FORWARD_SERVER}]]</td>
-                            <td scope="row">[[${dto.ROUTE_EMAIL}]]</td>
-                            <!-- <td scope="row">[[${dto.RUN_MODE}]]</td> -->
-                            <td scope="row">[[${dto.FILTER_ORDER}]]</td>
-                            <!-- <td scope="row">[[${dto.APT_USE}]]</td> -->
-                            <!-- <td scope="row">[[${dto.DETOX_USE}]]</td> -->
-                            <td scope="row">[[${dto.LANG}]]</td>
-                            <td scope="row">[[${dto.USR_GRADE?.grade_name}]]</td>
-                            <td scope="row">[[${dto.DEPT_INFO?.dept_name}]]</td>
-                            <!-- <td scope="row">[[${dto.USR_MANAGER}]]</td> -->
-                            <!-- <td scope="row">[[${dto.IS_VALID}]]</td> -->
-                            <td scope="row">[[${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}]]</td>
-                            <td scope="row">[[${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}]]</td>
+                            <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="이름">Name</td>
+                            <!-- <td>GRP</td> -->
+                            <!-- <td>GRP_ADMIN</td> -->
+                            <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="도메인">DOMAIN</td>
+                            <!-- <td>EARS_USE</td> -->
+                            <!-- <td>EARS_EXPIRE_ACTION</td> -->
+                            <!-- <td>ROUTE_SERVER</td> -->
+                            <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="메일 서버">
+                                FORWARD_SERVER
+                            </td>
+                            <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="라우팅 서버 계정">
+                                ROUTE_EMAIL
+                            </td>
+                            <!-- <td>RUN_MODE</td> -->
+                            <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="필터 우선 순위">
+                                FILTER_ORDER
+                            </td>
+                            <!-- <td>APT_USE</td> -->
+                            <!-- <td>DETOX_USE</td> -->
+                            <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="사용자 언어">LANG</td>
+                            <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="직급">USR_GRADE</td>
+                            <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="소속 부서">USR_DEPT
+                            </td>
+                            <!-- <td>USR_MANAGER</td> -->
+                            <!-- <td>IS_VALID</td> -->
+                            <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="마지막 수정일">
+                                LastModified
+                            </td>
+                            <td data-placement="bottom" data-toggle="tooltip" data-html="true" title="생성일">Created</td>
                         </tr>
-                    </th:block>
-                    <tr th:if="${result == null or result.dtoList.size == 0 or result.dtoList == null}">
-                        <td colspan="15">데이터가 없습니다.</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </form>
-        </div >
-        <div>
-            <ul class="pagination h-100 justify-content-center align-items-center">
-                <li class="page-item" th:if="${result.prev}">
-                    <a class="page-link" th:href="@{/hr/list(page=${result.start - 1}, pageSize=${pageRequestDTO.pageSize},dbType=${pageRequestDTO.dbType}, keyword=${pageRequestDTO.keyword})}" tabindex="-1">Previous</a>
-                </li>
-                <li th:class="'page-item ' + ${result.page == page ? 'active' : ''}" th:each="page: ${result.pageList}">
-                    <a class="page-link" th:href="@{/hr/list(page = ${page}, pageSize=${pageRequestDTO.pageSize},dbType=${pageRequestDTO.dbType}, keyword=${pageRequestDTO.keyword})}">
-                        [[${page}]]
-                    </a>
-                </li>
-                <li class="page-item" th:if="${result.next}">
-                    <a class="page-link" th:href="@{/hr/list(page=${result.end + 1}, pageSize=${pageRequestDTO.pageSize},dbType=${pageRequestDTO.dbType}, keyword=${pageRequestDTO.keyword})}">Next</a>
-                </li>
-            </ul>
-        </div>
-        <div class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                        </thead>
+                        <tbody id="hrData" align="center">
+                        <th:block th:if="${result != null}">
+                            <tr th:if="${result.dtoList != null}" th:each="dto : ${result.dtoList}">
+                                <td></td>
+                                <td scope="row">
+                                    <input class="form-check-input" type="checkbox" th:value="${dto.NO}" id="check">
+                                </td>
+                                <td scope="row"><a th:href="@{/hr/modifyHR(emp_no = ${dto.NO}, page = ${pageRequestDTO.page}, pageSize = ${pageRequestDTO.pageSize}, sortName = ${pageRequestDTO.sortName}, sortType = ${pageRequestDTO.sortType})}">[[${dto.NO}]]</a></td>
+                                <td scope="row">[[${dto.EMAIL}]]</td>
+                                <td scope="row">[[${dto.PASSWORD}]]</td>
+                                <td scope="row">[[${dto.NAME}]]</td>
+                                <!-- <td scope="row">[[${dto.GRP}]]</td> -->
+                                <!-- <td scope="row">[[${dto.GRP_ADMIN}]]</td> -->
+                                <td scope="row">[[${dto.DOMAIN}]]</td>
+                                <!-- <td scope="row">[[${dto.EARS_USE}]]</td> -->
+                                <!-- <td scope="row">[[${dto.EARS_EXPIRE_ACTION}]]</td> -->
+                                <!-- <td scope="row">[[${dto.ROUTE_SERVER}]]</td> -->
+                                <td scope="row">[[${dto.FORWARD_SERVER}]]</td>
+                                <td scope="row">[[${dto.ROUTE_EMAIL}]]</td>
+                                <!-- <td scope="row">[[${dto.RUN_MODE}]]</td> -->
+                                <td scope="row">[[${dto.FILTER_ORDER}]]</td>
+                                <!-- <td scope="row">[[${dto.APT_USE}]]</td> -->
+                                <!-- <td scope="row">[[${dto.DETOX_USE}]]</td> -->
+                                <td scope="row">[[${dto.LANG}]]</td>
+                                <td scope="row">[[${dto.USR_GRADE?.grade_name}]]</td>
+                                <td scope="row">[[${dto.DEPT_INFO?.dept_name}]]</td>
+                                <!-- <td scope="row">[[${dto.USR_MANAGER}]]</td> -->
+                                <!-- <td scope="row">[[${dto.IS_VALID}]]</td> -->
+                                <td scope="row">[[${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}]]</td>
+                                <td scope="row">[[${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}]]</td>
+                            </tr>
+                        </th:block>
+                        <tr th:if="${result == null or result.dtoList.size == 0 or result.dtoList == null}">
+                            <td colspan="15">데이터가 없습니다.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div>
+                <ul class="pagination h-100 justify-content-center align-items-center">
+                    <li class="page-item" th:if="${result.prev}">
+                        <a class="page-link"
+                           th:href="@{/hr/list(page=${result.start - 1}, pageSize=${pageRequestDTO.pageSize},dbType=${pageRequestDTO.dbType}, keyword=${pageRequestDTO.keyword}, sortName=${pageRequestDTO.sortName}, sortType=${pageRequestDTO.sortType})}"
+                           tabindex="-1">Previous</a>
+                    </li>
+                    <li th:class="'page-item ' + ${result.page == page ? 'active' : ''}"
+                        th:each="page: ${result.pageList}">
+                        <a class="page-link"
+                           th:href="@{/hr/list(page = ${page}, pageSize=${pageRequestDTO.pageSize},dbType=${pageRequestDTO.dbType}, keyword=${pageRequestDTO.keyword}, sortName=${pageRequestDTO.sortName}, sortType=${pageRequestDTO.sortType})}">
+                            [[${page}]]
+                        </a>
+                    </li>
+                    <li class="page-item" th:if="${result.next}">
+                        <a class="page-link"
+                           th:href="@{/hr/list(page=${result.end + 1}, pageSize=${pageRequestDTO.pageSize},dbType=${pageRequestDTO.dbType}, keyword=${pageRequestDTO.keyword}, sortName=${pageRequestDTO.sortName}, sortType=${pageRequestDTO.sortType})}">Next</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
         </body>
         <script th:inline="javascript">
             var msg = [[${msg}]];
             console.log(msg);
-            if(msg){
+            if (msg) {
                 //$(".modal"). modal();
                 alert(msg);
             }
@@ -175,7 +229,7 @@
             var actionForm = $("#form_action_btn");
             $("#btn_remove_all").click(function () {
                 var result = confirm("모든 데이터가 삭제됩니다.\n삭제하시겠습니까?")
-                if(result == true){
+                if (result == true) {
                     actionForm
                         .attr("action", "/hr/allRemove")
                         .attr("method", "POST");
@@ -208,8 +262,8 @@
             }
 
             /**
-            // 부서수정
-            $("#btn_modify_dept").click(function () {
+             // 부서수정
+             $("#btn_modify_dept").click(function () {
                 actionForm
                     .attr("action", "/hr/modifyDept")
                     .attr("method", "GET")
@@ -218,7 +272,7 @@
             });
              **/
 
-            // 검색
+                // 검색
             var searchForm = $("#hr_db_searchForm");
             $("#btn_search").click(function () {
                 var pSize = $("#pSize option:selected").val();
@@ -246,38 +300,64 @@
                 searchForm.submit();
             });
 
+            // 정렬타입 정의
+            $("#sType").change(function () {
+                var sType = $("#sType option:selected").val();
+
+                // 변경된 value를 Hidden값 정의
+                $("#sortType").val(sType);
+
+                searchForm
+                    .attr("action", "/hr/list")
+                    .attr("method", "GET");
+                searchForm.submit();
+            });
+
+            // 정렬항목 정의
+            $("#sName").change(function () {
+                var sName = $("#sName option:selected").val();
+
+                // 변경된 value를 Hidden값 정의
+                $("#sortName").val(sName);
+
+                searchForm
+                    .attr("action", "/hr/list")
+                    .attr("method", "GET");
+                searchForm.submit();
+            });
+
             // 체크항목 삭제
             var chkList = new Array();
             $("#btn_remove").click(function () {
 
-               $("#check:checked").each(function () {
-                   chkList.push($(this).val());
-               })
+                $("#check:checked").each(function () {
+                    chkList.push($(this).val());
+                })
 
-                if(chkList.length == 0){
+                if (chkList.length == 0) {
                     alert("항목이 체크되지 않았습니다.")
-                }else{
+                } else {
 
                     $.ajax({
-                        url:'/hr/api/check_remove',
-                        dataType:'text',
-                        type:'post',
-                        data:{
-                            chkList : chkList,
+                        url: '/hr/api/check_remove',
+                        dataType: 'text',
+                        type: 'post',
+                        data: {
+                            chkList: chkList,
                         },
                         // 통신을 시작할때
-                        beforeSend : function () {
+                        beforeSend: function () {
                         },
                         // 통신에 성공할때
-                        complete : function () {
+                        complete: function () {
                         },
                         // JSON수신 성공
-                        success : function (data) {
+                        success: function (data) {
                             alert("정상처리되었습니다.");
                             window.location.reload();
                         },
                         // JSON수신 실패
-                        error :function (xhr) {
+                        error: function (xhr) {
                             alert("작업이 실패하였습니다.");
                             window.location.reload();
                         }
