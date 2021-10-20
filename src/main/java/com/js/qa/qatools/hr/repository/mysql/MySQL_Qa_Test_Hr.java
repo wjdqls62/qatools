@@ -7,7 +7,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import javax.transaction.Transactional;
 
-public interface Qa_Test_Hr extends JpaRepository<qa_test_hr, Integer>, QuerydslPredicateExecutor<qa_test_hr> {
+public interface MySQL_Qa_Test_Hr extends JpaRepository<qa_test_hr, Integer>, QuerydslPredicateExecutor<qa_test_hr> {
 
     /**
      * AutoIncreament 초기화
