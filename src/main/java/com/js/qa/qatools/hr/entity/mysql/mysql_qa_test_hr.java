@@ -1,17 +1,18 @@
-package com.js.qa.qatools.hr.entity.sqlserver;
+package com.js.qa.qatools.hr.entity.mysql;
 
 import com.js.qa.qatools.hr.entity.BaseEntity;
 import lombok.*;
+
 import javax.persistence.*;
 
 @Entity
 @Data
-@Table (schema = "insa")
+@Table(name = "qa_test_hr")
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
-public class qa_test_hr  {
+public class mysql_qa_test_hr extends BaseEntity {
 
     @Column(length = 255)
     private String EMAIL;
@@ -68,11 +69,11 @@ public class qa_test_hr  {
 
     @ManyToOne
     @JoinColumn(name = "USR_GRADE")
-    private user_grade usrGrade;
+    private mysql_user_grade usrGrade;
 
     @ManyToOne
     @JoinColumn(name = "USR_DEPT")
-    private dept_info usrDept;
+    private mysql_dept_info usrDept;
 
     @Column(length = 30, name = "USR_MANAGER")
     private String usrManager;

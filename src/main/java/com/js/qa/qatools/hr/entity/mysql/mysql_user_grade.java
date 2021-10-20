@@ -5,14 +5,13 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "user_grade")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @ToString
-public class user_grade {
-
+public class mysql_user_grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "grade_num")

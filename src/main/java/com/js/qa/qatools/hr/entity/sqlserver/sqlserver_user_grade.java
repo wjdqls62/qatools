@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @ToString
-public class user_grade {
+public class sqlserver_user_grade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

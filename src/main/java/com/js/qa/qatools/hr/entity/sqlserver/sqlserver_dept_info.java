@@ -1,17 +1,16 @@
-package com.js.qa.qatools.hr.entity.mysql;
+package com.js.qa.qatools.hr.entity.sqlserver;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table (schema = "insa")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @ToString
-public class dept_info {
+public class sqlserver_dept_info {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int dept_num;
