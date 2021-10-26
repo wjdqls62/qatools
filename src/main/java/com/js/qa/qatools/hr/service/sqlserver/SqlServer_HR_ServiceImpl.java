@@ -1,13 +1,13 @@
-package com.js.qa.qatools.hr.service.mysql;
+package com.js.qa.qatools.hr.service.sqlserver;
 
 import com.js.qa.qatools.hr.dto.*;
-import com.js.qa.qatools.hr.entity.mysql.Qmysql_qa_test_hr;
-import com.js.qa.qatools.hr.entity.mysql.mysql_dept_info;
-import com.js.qa.qatools.hr.entity.mysql.mysql_qa_test_hr;
-import com.js.qa.qatools.hr.entity.mysql.mysql_user_grade;
-import com.js.qa.qatools.hr.repository.mysql.MySQL_DeptInfo;
-import com.js.qa.qatools.hr.repository.mysql.MySQL_Qa_Test_Hr;
-import com.js.qa.qatools.hr.repository.mysql.MySQL_UserGrade;
+import com.js.qa.qatools.hr.entity.sqlserver.Qsqlserver_qa_test_hr;
+import com.js.qa.qatools.hr.entity.sqlserver.sqlserver_dept_info;
+import com.js.qa.qatools.hr.entity.sqlserver.sqlserver_qa_test_hr;
+import com.js.qa.qatools.hr.entity.sqlserver.sqlserver_user_grade;
+import com.js.qa.qatools.hr.repository.sqlserver.SqlServer_DeptInfo;
+import com.js.qa.qatools.hr.repository.sqlserver.SqlServer_Qa_Test_Hr;
+import com.js.qa.qatools.hr.repository.sqlserver.SqlServer_UserGrade;
 import com.js.qa.qatools.hr.user.GenerateUser;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -24,15 +24,15 @@ import java.util.function.Function;
 @Service
 @Log4j2
 @RequiredArgsConstructor
-public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
-    private final MySQL_Qa_Test_Hr hrRepository;
-    private final MySQL_DeptInfo deptRepository;
-    private final MySQL_UserGrade gradeRepository;
+public class SqlServer_HR_ServiceImpl implements SqlServer_HR_Service {
+    private final SqlServer_Qa_Test_Hr hrRepository;
+    private final SqlServer_DeptInfo deptRepository;
+    private final SqlServer_UserGrade gradeRepository;
     private final GenerateUser user;
 
     @Override
     public Integer hr_register(hrDTO dto) {
-        mysql_qa_test_hr entity = dtoToEntity(dto);
+        sqlserver_qa_test_hr entity = dtoToEntity(dto);
 
         hrRepository.save(entity);
         return entity.getNo();
@@ -68,10 +68,25 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
         }
 
         // 직급, 부서정보 로드
-        List<mysql_user_grade> userGrade = gradeRepository.findAll();
-        List<mysql_dept_info> deptList = deptRepository.findAll();
+        List<sqlserver_user_grade> userGrade = gradeRepository.findAll();
+        List<sqlserver_dept_info> deptList = deptRepository.findAll();
+        sqlserver_user_grade resultUserGrade;
+        sqlserver_dept_info resultDeptInfo;
+        // select의 option 중 value가 0이면 랜덤생성한다.
+        if(grade == 0){
+            long grade_count = gradeRepository.count();
+            resultUserGrade = userGrade.get((int) (Math.random() * grade_count));
+        }else{
+            resultUserGrade = userGrade.get(grade-1);
+        }
+        if(dept == 0){
+            long dept_count = deptRepository.count();
+            resultDeptInfo = deptList.get((int) (Math.random() * dept_count));
+        }else{
+            resultDeptInfo = deptList.get(dept-1);
+        }
 
-        List<mysql_qa_test_hr> entityList = new ArrayList<>();
+        List<sqlserver_qa_test_hr> entityList = new ArrayList<>();
         String[] domain = domainList.split(",");
 
         for(int i = 0; i < count; i++){
@@ -96,37 +111,25 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
                     .LANG(lang)
                     .USR_MANAGER(null)
                     .IS_VALID(null)
+                    .SQLSERVER_USR_GRADE(resultUserGrade)
+                    .SQLSERVER_DEPT_INFO(resultDeptInfo)
                     .build();
 
-            // select의 option 중 value가 0이면 랜덤생성한다.
-            if(grade == 0){
-                long grade_count = gradeRepository.count();
-                tempHrDTO.setMYSQL_USR_GRADE(userGrade.get((int) (Math.random() * grade_count)));
-            }else{
-                tempHrDTO.setMYSQL_USR_GRADE(userGrade.get(grade-1));
-            }
-            if(dept == 0){
-                long dept_count = deptRepository.count();
-                tempHrDTO.setMYSQL_DEPT_INFO(deptList.get((int) (Math.random() * dept_count)));
-            }else{
-                tempHrDTO.setMYSQL_DEPT_INFO(deptList.get(dept-1));
-            }
             entityList.add(dtoToEntity(tempHrDTO));
         }
         hrRepository.saveAll(entityList);
     }
 
-
     @Override
-    public PageResultDTO<hrDTO, mysql_qa_test_hr> getList(PageRequestDTO requestDTO) {
+    public PageResultDTO<hrDTO, sqlserver_qa_test_hr> getList(PageRequestDTO requestDTO) {
 
         Pageable pageable = requestDTO.getPageable();
 
         BooleanBuilder booleanBuilder = getSearch(requestDTO);
 
-        Page<mysql_qa_test_hr> result = hrRepository.findAll(booleanBuilder, pageable);
+        Page<sqlserver_qa_test_hr> result = hrRepository.findAll(booleanBuilder, pageable);
 
-        Function<mysql_qa_test_hr, hrDTO> fn = (entity -> entityToDTO(entity));
+        Function<sqlserver_qa_test_hr, hrDTO> fn = (entity -> entityToDTO(entity));
 
         return new PageResultDTO<>(result, fn);
     }
@@ -150,7 +153,7 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
     @Override
     public void hr_modify(hrDTO dto) {
 
-        mysql_qa_test_hr entity = hrRepository.getById(dto.getNO());
+        sqlserver_qa_test_hr entity = hrRepository.getById(dto.getNO());
         entity.setEMAIL(dto.getEMAIL());
         entity.setPASSWORD(dto.getPASSWORD());
         entity.setName(dto.getNAME());
@@ -167,8 +170,8 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
         entity.setAptUse(dto.getAPT_USE());
         entity.setDetoxUse(dto.getDETOX_USE());
         entity.setLang(dto.getLANG());
-        entity.setUsrGrade(dto.getMYSQL_USR_GRADE());
-        entity.setUsrDept(dto.getMYSQL_DEPT_INFO());
+        entity.setUsrGrade(dto.getSQLSERVER_USR_GRADE());
+        entity.setUsrDept(dto.getSQLSERVER_DEPT_INFO());
         entity.setUsrManager(dto.getUSR_MANAGER());
         entity.setIsValid(dto.getIS_VALID());
 
@@ -181,7 +184,7 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
     }
 
     @Override
-    public List<mysql_dept_info> dept_getList() {
+    public List<sqlserver_dept_info> dept_getList() {
         return deptRepository.findAll();
     }
 
@@ -192,7 +195,7 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
 
     @Override
     public deptDTO dept_read(Integer dept_num) {
-        Optional<mysql_dept_info> result = deptRepository.findById(dept_num);
+        Optional<sqlserver_dept_info> result = deptRepository.findById(dept_num);
         return result.isPresent() ? entityToDTO(result.get()) : null;
 
     }
@@ -204,7 +207,7 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
 
     @Override
     public void dept_modify(deptDTO dto) {
-        mysql_dept_info entity = deptRepository.getById(dto.getDept_num());
+        sqlserver_dept_info entity = deptRepository.getById(dto.getDept_num());
 
         entity.changeDeptName(dto.getDept_name());
         entity.changeParent(dto.getDept_parent());
@@ -218,7 +221,7 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
     }
 
     @Override
-    public List<mysql_user_grade> grade_getList() {
+    public List<sqlserver_user_grade> grade_getList() {
         return gradeRepository.findAll();
     }
 
@@ -229,7 +232,7 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
 
     @Override
     public gradeDTO grade_read(Integer grade_num) {
-        Optional<mysql_user_grade> result = gradeRepository.findById(grade_num);
+        Optional<sqlserver_user_grade> result = gradeRepository.findById(grade_num);
         return result.isPresent() ? entityToDTO(result.get()) : null;
     }
 
@@ -240,7 +243,7 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
 
     @Override
     public void grade_modify(gradeDTO dto) {
-        mysql_user_grade entity = gradeRepository.getById(dto.getGrade_num());
+        sqlserver_user_grade entity = gradeRepository.getById(dto.getGrade_num());
 
         entity.changeGradeName(dto.getGrade_name());
 
@@ -257,7 +260,7 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-        Qmysql_qa_test_hr qa_test_hr = Qmysql_qa_test_hr.mysql_qa_test_hr;
+        Qsqlserver_qa_test_hr qa_test_hr = Qsqlserver_qa_test_hr.sqlserver_qa_test_hr;
 
         String keyword = requestDTO.getKeyword();
 
