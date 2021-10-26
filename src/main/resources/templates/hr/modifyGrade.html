@@ -21,7 +21,7 @@
     <body>
     <div id="modifyGradeLayout">
         <div id="popup_modify_title">
-            <h1>직급정보</h1>
+            <h1 th:text="${dbType} + 직급정보"></h1>
         </div>
         <div>
             <table class="table table-striped" id="table_column">
@@ -37,6 +37,7 @@
                 <th:block th:if="${result != null}">
                     <tr>
                         <form id="add_grade">
+                            <input type="hidden" name="dbType" th:value="${dbType}">
                             <td scope="row">New</td>
                             <td scope="row"><input type="text" name="grade_name" /></td>
                             <td scope="row"><button type="button" id="btn_reg_grade" th:onclick="|javascript:add();|" >추가</button></td>
@@ -45,6 +46,7 @@
                     </tr>
                     <tr th:each="dto : ${result}">
                         <form th:id="${dto.grade_num}" method="get">
+                            <input type="hidden" name="dbType" th:value="${dbType}">
                             <input type="hidden" name="grade_num" th:value="${dto.grade_num}">
                             <td scope="row" th:text="${dto.grade_num}"></td>
                             <td scope="row"><input type="text" name="grade_name" th:value="${dto.grade_name}"/></td>
