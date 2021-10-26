@@ -26,8 +26,8 @@
                                    name="dbType" value="mysql"> MySQL
                         </label>
                         <label>
-                            <input class="common-text" type="radio" th:checked="${pageRequestDTO.dbType == 'mssql'}"
-                                   name="dbType" value="mssql" disabled> MS-SQL
+                            <input class="common-text" type="radio" th:checked="${pageRequestDTO.dbType == 'sqlserver'}"
+                                   name="dbType" value="sqlserver"> SQL Server
                         </label>
                         <label>
                             <input class="common-text" type="radio" th:checked="${pageRequestDTO.dbType == 'oracle'}"
@@ -50,6 +50,7 @@
 
                 <div style="display: inline-block; float: left; padding-bottom: 20px">
                     <form id="form_action_btn">
+                        <input type="hidden" name="dbType" th:value="${pageRequestDTO.dbType}">
                     </form>
                     <button id="btn_remove_all" class="btn btn-danger common-text">모두삭제</button>
                     <button id="btn_remove" class="btn btn-danger common-text">삭제</button>
@@ -162,12 +163,21 @@
                                 <!-- <td scope="row">[[${dto.APT_USE}]]</td> -->
                                 <!-- <td scope="row">[[${dto.DETOX_USE}]]</td> -->
                                 <td scope="row">[[${dto.LANG}]]</td>
-                                <td scope="row">[[${dto.USR_GRADE?.grade_name}]]</td>
-                                <td scope="row">[[${dto.DEPT_INFO?.dept_name}]]</td>
+                                <th:block th:if="${pageRequestDTO.dbType == 'mysql'}">
+                                    <td scope="row">[[${dto.MYSQL_USR_GRADE?.grade_name}]]</td>
+                                    <td scope="row">[[${dto.MYSQL_DEPT_INFO?.dept_name}]]</td>
+                                    <td scope="row">[[${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}]]</td>
+                                    <td scope="row">[[${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}]]</td>
+                                </th:block>
+                                <th:block th:if="${pageRequestDTO.dbType == 'sqlserver'}">
+                                    <td scope="row">[[${dto.SQLSERVER_USR_GRADE?.grade_name}]]</td>
+                                    <td scope="row">[[${dto.SQLSERVER_DEPT_INFO?.dept_name}]]</td>
+                                    <td scope="row">NULL</td>
+                                    <td scope="row">NULL</td>
+                                </th:block>
+
                                 <!-- <td scope="row">[[${dto.USR_MANAGER}]]</td> -->
                                 <!-- <td scope="row">[[${dto.IS_VALID}]]</td> -->
-                                <td scope="row">[[${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}]]</td>
-                                <td scope="row">[[${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}]]</td>
                             </tr>
                         </th:block>
                         <tr th:if="${result == null or result.dtoList.size == 0 or result.dtoList == null}">

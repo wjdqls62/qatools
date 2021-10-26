@@ -5,13 +5,13 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "dept_info")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @ToString
-public class dept_info {
+public class mysql_dept_info {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int dept_num;

@@ -7,18 +7,21 @@
         </head>
         <body>
         <div id="generateUserLayout" style="width: 900px">
-            <form>
+            <form id="databaseForm">
                 <div class="form-group row">
-                    <label for="inputTargetDatabase" class="col-sm-2 col-form-label"
+                    <label for="targetDatabase" class="col-sm-2 col-form-label"
                            style="font-weight: bold">데이터베이스</label>
                     <div class="col-sm-10">
-                        <select id="inputTargetDatabase" name="targetDatabase">
+                        <select id="targetDatabase" name="targetDatabase">
                             <option value="mysql" selected>MySQL</option>
-                            <option value="mssql" disabled>MS-SQL</option>
+                            <option value="sqlserver" >SQL Server</option>
                             <option value="oracle" disabled>Oracle</option>
                         </select>
                     </div>
                 </div>
+            </form>
+            <form id="addForm" name="addForm">
+                <input type="hidden" name="targetDatabase" th:value="${dbType}">
                 <div class="form-group row">
                     <label for="inputCount" class="col-sm-2 col-form-label" style="font-weight: bold">생성 유저수</label>
                     <div class="col-sm-10">
@@ -266,9 +269,16 @@ example.fr</textarea>
         </div>
         </body>
         <script th:inline="javascript">
-            var actionForm = $("form");
+            var targetDatabase = $('input[name=targetDatabase]').val();
+            if(targetDatabase == "mysql"){
+                $("#targetDatabase").val(targetDatabase).prop("selected", true);
+            }else if(targetDatabase == "sqlserver"){
+                $("#targetDatabase").val(targetDatabase).prop("selected", true);
+            }else if(targetDatabase == "oracle"){
+                $("#targetDatabase").val(targetDatabase).prop("selected", true);
+            }
+
             var msg = [[${msg}]];
-            console.log(msg);
             if (msg) {
                 $(".modal").modal();
             }
@@ -283,18 +293,25 @@ example.fr</textarea>
                 }
             })
 
-
+            var addForm = $("#addForm");
             $("#btn_generate").click(function () {
-                actionForm
+                addForm
                     .attr("action", "/hr/autoAdd")
                     .attr("method", "post");
-                actionForm.submit();
+                addForm.submit();
             });
 
             // 툴팁 처리
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip();
             })
+
+            var databaseForm = $("#databaseForm");
+            $("#targetDatabase").change(function () {
+                    databaseForm
+                        .attr("method", "GET");
+                    databaseForm.submit();
+            });
         </script>
     </th:block>
 </th:block>

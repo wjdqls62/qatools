@@ -1,14 +1,14 @@
-package com.js.qa.qatools.hr.service.mysql;
+package com.js.qa.qatools.hr.service.sqlserver;
 
 import com.js.qa.qatools.hr.dto.*;
-import com.js.qa.qatools.hr.entity.mysql.mysql_dept_info;
-import com.js.qa.qatools.hr.entity.mysql.mysql_qa_test_hr;
-import com.js.qa.qatools.hr.entity.mysql.mysql_user_grade;
+import com.js.qa.qatools.hr.entity.sqlserver.sqlserver_dept_info;
+import com.js.qa.qatools.hr.entity.sqlserver.sqlserver_qa_test_hr;
+import com.js.qa.qatools.hr.entity.sqlserver.sqlserver_user_grade;
 
 import java.util.List;
 
-public interface MySQL_HR_Service {
-    PageResultDTO<hrDTO, mysql_qa_test_hr> getList(PageRequestDTO requestDTO);
+public interface SqlServer_HR_Service {
+    PageResultDTO<hrDTO, sqlserver_qa_test_hr> getList(PageRequestDTO requestDTO);
 
     /** QA_TEST_HR **/
     Integer hr_register(hrDTO dto);
@@ -41,7 +41,7 @@ public interface MySQL_HR_Service {
     long hr_getCnt();
 
     /** dept **/
-    List<mysql_dept_info>  dept_getList();
+    List<sqlserver_dept_info>  dept_getList();
     Integer dept_register(hrDTO dto);
     deptDTO dept_read(Integer dept_num);
     void dept_remove(Integer dept_num);
@@ -49,23 +49,23 @@ public interface MySQL_HR_Service {
     void dept_register(deptDTO dto);
 
     /** grade **/
-    List<mysql_user_grade> grade_getList();
+    List<sqlserver_user_grade> grade_getList();
     Integer grade_register(hrDTO dto);
     gradeDTO grade_read(Integer grade_num);
     void grade_remove(Integer grade_num);
     void grade_modify(gradeDTO dto);
     void grade_register(gradeDTO dto);
 
-    default mysql_user_grade dtoToEntity(gradeDTO dto){
-        mysql_user_grade entity = mysql_user_grade.builder()
+    default sqlserver_user_grade dtoToEntity(gradeDTO dto){
+        sqlserver_user_grade entity = sqlserver_user_grade.builder()
                 .grade_name(dto.getGrade_name())
                 .grade_num(dto.getGrade_num())
                 .build();
         return entity;
     }
 
-    default mysql_dept_info dtoToEntity(deptDTO dto){
-        mysql_dept_info entity = mysql_dept_info.builder()
+    default sqlserver_dept_info dtoToEntity(deptDTO dto){
+        sqlserver_dept_info entity = sqlserver_dept_info.builder()
                 .dept_num(dto.getDept_num())
                 .dept_name(dto.getDept_name())
                 .dept_parent(dto.getDept_parent())
@@ -73,8 +73,8 @@ public interface MySQL_HR_Service {
         return entity;
     }
 
-    default mysql_qa_test_hr dtoToEntity(hrDTO dto){
-        mysql_qa_test_hr entity = mysql_qa_test_hr.builder()
+    default sqlserver_qa_test_hr dtoToEntity(hrDTO dto){
+        sqlserver_qa_test_hr entity = sqlserver_qa_test_hr.builder()
                 .EMAIL(dto.getEMAIL())
                 .PASSWORD(dto.getPASSWORD())
                 .no(dto.getNO())
@@ -92,8 +92,8 @@ public interface MySQL_HR_Service {
                 .aptUse(dto.getAPT_USE())
                 .detoxUse(dto.getDETOX_USE())
                 .lang(dto.getLANG())
-                .usrGrade(dto.getMYSQL_USR_GRADE())
-                .usrDept(dto.getMYSQL_DEPT_INFO())
+                .usrGrade(dto.getSQLSERVER_USR_GRADE())
+                .usrDept(dto.getSQLSERVER_DEPT_INFO())
                 .usrManager(dto.getUSR_MANAGER())
                 .isValid(dto.getIS_VALID())
                 .build();
@@ -101,7 +101,7 @@ public interface MySQL_HR_Service {
         return entity;
     }
 
-    default deptDTO entityToDTO(mysql_dept_info entity){
+    default deptDTO entityToDTO(sqlserver_dept_info entity){
         deptDTO dto = deptDTO.builder()
                 .dept_num(entity.getDept_num())
                 .dept_name(entity.getDept_name())
@@ -111,7 +111,7 @@ public interface MySQL_HR_Service {
         return dto;
     }
 
-    default gradeDTO entityToDTO(mysql_user_grade entity){
+    default gradeDTO entityToDTO(sqlserver_user_grade entity){
         gradeDTO dto = gradeDTO.builder()
                 .grade_num(entity.getGrade_num())
                 .grade_name(entity.getGrade_name())
@@ -120,7 +120,7 @@ public interface MySQL_HR_Service {
         return dto;
     }
 
-    default hrDTO entityToDTO(mysql_qa_test_hr entity){
+    default hrDTO entityToDTO(sqlserver_qa_test_hr entity){
         hrDTO dto = hrDTO.builder()
                 .EMAIL(entity.getEMAIL())
                 .PASSWORD(entity.getPASSWORD())
@@ -139,12 +139,10 @@ public interface MySQL_HR_Service {
                 .APT_USE(entity.getAptUse())
                 .DETOX_USE(entity.getDetoxUse())
                 .LANG(entity.getLang())
-                .MYSQL_USR_GRADE(entity.getUsrGrade())
-                .MYSQL_DEPT_INFO(entity.getUsrDept())
+                .SQLSERVER_USR_GRADE(entity.getUsrGrade())
+                .SQLSERVER_DEPT_INFO(entity.getUsrDept())
                 .USR_MANAGER(entity.getUsrManager())
                 .IS_VALID(entity.getIsValid())
-                .regDate(entity.getRegDate())
-                .modDate(entity.getModDate())
                 .build();
 
         return dto;
