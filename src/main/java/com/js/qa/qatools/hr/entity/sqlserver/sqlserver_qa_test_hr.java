@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table (schema = "insa")
+@Table (schema = "insa", name = "qa_test_hr")
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -65,11 +65,11 @@ public class sqlserver_qa_test_hr {
     @Column(length = 2, name = "LANG")
     private String lang;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "USR_GRADE")
     private sqlserver_user_grade usrGrade;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "USR_DEPT")
     private sqlserver_dept_info usrDept;
 

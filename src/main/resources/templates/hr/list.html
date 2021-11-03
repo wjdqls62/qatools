@@ -13,7 +13,6 @@
                 <input type="hidden" id="pageSize" name="pageSize" th:value="${pageRequestDTO.pageSize}">
                 <input type="hidden" id="sortName" name="sortName" th:value="${pageRequestDTO.sortName}">
                 <input type="hidden" id="sortType" name="sortType" th:value="${pageRequestDTO.sortType}">
-
                 <table class="common-text" style="border: 1px; text-align: center">
                     <thead>
                     <tr>
@@ -146,7 +145,7 @@
                                 <td scope="row">
                                     <input class="form-check-input" type="checkbox" th:value="${dto.NO}" id="check">
                                 </td>
-                                <td scope="row"><a th:href="@{/hr/modifyHR(emp_no = ${dto.NO}, page = ${pageRequestDTO.page}, pageSize = ${pageRequestDTO.pageSize}, sortName = ${pageRequestDTO.sortName}, sortType = ${pageRequestDTO.sortType})}">[[${dto.NO}]]</a></td>
+                                <td scope="row"><a th:href="@{/hr/modifyHR(emp_no = ${dto.NO}, dbType = ${pageRequestDTO.dbType},page = ${pageRequestDTO.page}, pageSize = ${pageRequestDTO.pageSize}, sortName = ${pageRequestDTO.sortName}, sortType = ${pageRequestDTO.sortType})}">[[${dto.NO}]]</a></td>
                                 <td scope="row">[[${dto.EMAIL}]]</td>
                                 <td scope="row">[[${dto.PASSWORD}]]</td>
                                 <td scope="row">[[${dto.NAME}]]</td>
@@ -337,6 +336,7 @@
             });
 
             // 체크항목 삭제
+            var dbType = [[${pageRequestDTO.dbType}]]
             var chkList = new Array();
             $("#btn_remove").click(function () {
 
@@ -354,6 +354,7 @@
                         type: 'post',
                         data: {
                             chkList: chkList,
+                            dbType: dbType,
                         },
                         // 통신을 시작할때
                         beforeSend: function () {

@@ -12,6 +12,7 @@
         <input type="hidden" id="pageSize" name="pageSize" th:value="${pageRequestDTO.pageSize}">
         <input type="hidden" name="sortName" th:value="${pageRequestDTO.sortName}">
         <input type="hidden" name="sortType" th:value="${pageRequestDTO.sortType}">
+        <input type="hidden" name="dbType" th:value="${pageRequestDTO.dbType}">
         <div class="form-group row">
           <label for="input_emp_no" class="col-sm-2 col-form-label" style="font-weight: bold">No
             </label>
@@ -150,9 +151,16 @@
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="inputDept" style="display: inline-block; font-weight: bold;">부서</label>
-          <select class="form-control" id="inputDept" name="DEPT_INFO" style="font-size: 9pt">
-            <option value="0">무작위</option>
-            <option th:each="dept : ${deptList}" th:value="${dept.dept_num}" th:text="${dept.dept_name}"></option>
+          <select class="form-control" id="inputDept" name="USR_DEPT" style="font-size: 9pt">
+            <th:block th:if="${pageRequestDTO.dbType == 'mysql'}">
+              <option value="0">무작위</option>
+              <option th:each="dept : ${deptList}" th:value="${dept.dept_num}" th:text="${dept.dept_name}"></option>
+            </th:block>
+            <th:block th:if="${pageRequestDTO.dbType == 'sqlserver'}">
+              <option value="0">무작위</option>
+              <option th:each="dept : ${deptList}" th:value="${dept.dept_num}" th:text="${dept.dept_name}"></option>
+            </th:block>
+
           </select>
         </div>
 
@@ -195,16 +203,34 @@
       /**
        * 자바스크립트 변수에 타임리프 변수를 넣음
        */
-      /*<![CDATA[*/
-      var select_grade_num = [[${result.USR_GRADE.grade_num}]];
-      /*]]>*/
-      $("#inputGrade").val(select_grade_num).prop("selected", true);
+      var dbType = [[${dbType}]];
 
-      /*<![CDATA[*/
-      var select_dept_num = [[${result.DEPT_INFO.dept_num}]];
-      /*]]>*/
-      $("#inputDept").val(select_dept_num).prop("selected", true);
+      if(dbType == "mysql"){
+        var mysql_select_grade_num = [[${result.MYSQL_USR_GRADE?.grade_num}]];
+        var mysql_select_dept_num = [[${result.MYSQL_DEPT_INFO?.dept_num}]];
+        $("#inputGrade").val(mysql_select_grade_num).prop("selected", true);
+        $("#inputDept").val(mysql_select_dept_num).prop("selected", true);
+        $("#inputGrade").attr("name", "MYSQL_USR_GRADE")
+        $("#inputDept").attr("name", "MYSQL_DEPT_INFO");
+      }else if(dbType == "sqlserver"){
+        var sqlserver_select_grade_num = [[${result.SQLSERVER_USR_GRADE?.grade_num}]];
+        var sqlserver_select_dept_num = [[${result.SQLSERVER_DEPT_INFO?.dept_num}]];
+        $("#inputGrade").val(sqlserver_select_grade_num).prop("selected", true);
+        $("#inputDept").val(sqlserver_select_dept_num).prop("selected", true);
+        $("#inputGrade").attr("name", "SQLSERVER_USR_GRADE");
+        $("#inputDept").attr("name", "SQLSERVER_DEPT_INFO");
+      }
 
+
+
+
+      //if(dbType == "mysql"){
+      //  $("#inputGrade").val(mysql_select_grade_num).prop("selected", true);
+      //  $("#inputDept").val(mysql_select_dept_num).prop("selected", true);
+      //}else if(dbType == "sqlserver"){
+      //  $("#inputGrade").val(sqlserver_select_grade_num).prop("selected", true);
+      //  $("#inputDept").val(sqlserver_select_dept_num).prop("selected", true);
+      //}
 
       $(function () {
         $('[data-toggle="tooltip"]').tooltip();

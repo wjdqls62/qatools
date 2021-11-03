@@ -20,10 +20,6 @@ public class mysql_user_grade {
     @Column(length = 50)
     private String grade_name;
 
-    public void changeGradeNum(int grade_num){
-        this.grade_num = grade_num;
-    }
-
     public void changeGradeName(String grade_name){
         this.grade_name = grade_name;
     }

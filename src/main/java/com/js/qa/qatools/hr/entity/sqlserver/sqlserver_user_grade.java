@@ -1,10 +1,12 @@
 package com.js.qa.qatools.hr.entity.sqlserver;
 
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 
 @Entity
-@Table (schema = "insa")
+@Table (schema = "insa", name = "user_grade")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,10 +21,6 @@ public class sqlserver_user_grade {
 
     @Column(length = 50)
     private String grade_name;
-
-    public void changeGradeNum(int grade_num){
-        this.grade_num = grade_num;
-    }
 
     public void changeGradeName(String grade_name){
         this.grade_name = grade_name;

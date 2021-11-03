@@ -82,6 +82,8 @@ public class HrController {
             model.addAttribute("deptList", sqlServerService.dept_getList());
             model.addAttribute("result", sqlServerService.hr_read(emp_no));
         }
+        model.addAttribute("dbType", pageRequestDTO.getDbType());
+        model.addAttribute("msg", pageRequestDTO.getDbType());
         log.info("hr_modify apge");
     }
 
@@ -98,6 +100,7 @@ public class HrController {
         redirectAttributes.addAttribute("pageSize", pageRequestDTO.getPageSize());
         redirectAttributes.addAttribute("sortName", pageRequestDTO.getSortName());
         redirectAttributes.addAttribute("sortType", pageRequestDTO.getSortType());
+        redirectAttributes.addAttribute("dbType", pageRequestDTO.getDbType());
         redirectAttributes.addFlashAttribute("msg",msg_success);
         return "redirect:/hr/list";
     }
@@ -205,15 +208,27 @@ public class HrController {
 
     // 모두삭제
     @PostMapping("/allRemove")
-    public String hr_removeAll(RedirectAttributes redirectAttributes){
-        if(mysqlService.hr_getCnt() == 0){
-            redirectAttributes.addFlashAttribute("msg","삭제할 항목이 존재하지 않습니다.");
-            log.info("not exists remove target.");
-        }else{
-            mysqlService.hr_removeAll();
-            log.info("remove all.");
-            redirectAttributes.addFlashAttribute("msg","모두 삭제되었습니다.");
+    public String hr_removeAll(RedirectAttributes redirectAttributes, String dbType){
+        if(dbType.equals(DB_MYSQL)){
+            if(mysqlService.hr_getCnt() == 0){
+                redirectAttributes.addFlashAttribute("msg","삭제할 항목이 존재하지 않습니다.");
+                log.info("not exists remove target.");
+            }else{
+                mysqlService.hr_removeAll();
+                log.info("remove all.");
+                redirectAttributes.addFlashAttribute("msg","모두 삭제되었습니다.");
+            }
+        }else if(dbType.equals(DB_SQLSERVER)){
+            if(sqlServerService.hr_getCnt() == 0){
+                redirectAttributes.addFlashAttribute("msg","삭제할 항목이 존재하지 않습니다.");
+                log.info("not exists remove target.");
+            }else{
+                sqlServerService.hr_removeAll();
+                log.info("remove all.");
+                redirectAttributes.addFlashAttribute("msg","모두 삭제되었습니다.");
+            }
         }
+
         return "redirect:/hr/list";
     }
 

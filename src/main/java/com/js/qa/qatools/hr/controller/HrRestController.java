@@ -1,6 +1,7 @@
 package com.js.qa.qatools.hr.controller;
 
 import com.js.qa.qatools.hr.service.mysql.MySQL_HR_Service;
+import com.js.qa.qatools.hr.service.sqlserver.SqlServer_HR_Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,13 +16,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RestController
 public class HrRestController {
     private final MySQL_HR_Service mysqlService;
+    private final SqlServer_HR_Service sqlserverService;
 
     // 체크항목 삭제
     @PostMapping("/check_remove")
-    public String hr_multiple_remove(@RequestParam(value = "chkList[]") String[] chkList,
+    public String hr_multiple_remove(@RequestParam(value = "chkList[]") String[] chkList, String dbType,
                                    RedirectAttributes redirectAttributes){
         for(int i = 0; i < chkList.length; i++){
-            mysqlService.hr_remove(Integer.parseInt(chkList[i]));
+            if(dbType.equals("mysql")){
+                mysqlService.hr_remove(Integer.parseInt(chkList[i]));
+            }else if(dbType.equals("sqlserver")){
+                sqlserverService.hr_remove(Integer.parseInt(chkList[i]));
+            }
         }
 
         redirectAttributes.addFlashAttribute("msg","선택된 항목이 삭제되었습니다.");
