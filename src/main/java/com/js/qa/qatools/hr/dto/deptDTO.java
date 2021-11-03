@@ -13,5 +13,4 @@ public class deptDTO {
     private int dept_num;
     private String dept_name;
     private String dept_parent;
-    private String dbType;
 }

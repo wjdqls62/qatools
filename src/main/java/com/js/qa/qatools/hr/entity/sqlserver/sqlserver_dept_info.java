@@ -1,10 +1,12 @@
 package com.js.qa.qatools.hr.entity.sqlserver;
 
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 
 @Entity
-@Table (schema = "insa")
+@Table (schema = "insa", name = "dept_info")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

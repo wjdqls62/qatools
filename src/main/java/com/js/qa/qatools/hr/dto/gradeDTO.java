@@ -12,5 +12,4 @@ import lombok.NoArgsConstructor;
 public class gradeDTO {
     private int grade_num;
     private String grade_name;
-    private String dbType;
 }

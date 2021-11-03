@@ -14,6 +14,6 @@ public interface SqlServer_Qa_Test_Hr extends JpaRepository<sqlserver_qa_test_hr
      */
     @Transactional
     @Modifying
-    @Query(value = "ALTER TABLE qa_test_hr AUTO_INCREMENT = 1", nativeQuery = true)
+    @Query(value = "DBCC CHECKIDENT([insa.qa_test_hr], reseed, 0);", nativeQuery = true)
     void resetAutoIncreament();
 }

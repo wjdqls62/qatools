@@ -16,6 +16,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -136,7 +138,9 @@ public class SqlServer_HR_ServiceImpl implements SqlServer_HR_Service {
 
     @Override
     public hrDTO hr_read(Integer emp_no) {
-        return entityToDTO(hrRepository.getById(emp_no));
+        Optional<sqlserver_qa_test_hr> entity = hrRepository.findById(emp_no);
+
+        return entityToDTO(entity.get());
     }
 
     @Override
@@ -153,7 +157,29 @@ public class SqlServer_HR_ServiceImpl implements SqlServer_HR_Service {
     @Override
     public void hr_modify(hrDTO dto) {
 
-        sqlserver_qa_test_hr entity = hrRepository.getById(dto.getNO());
+        sqlserver_qa_test_hr entity = hrRepository.findById(dto.getNO()).get();
+        entity.setEMAIL(dto.getEMAIL());
+        entity.setPASSWORD(dto.getPASSWORD());
+        entity.setName(dto.getNAME());
+        entity.setGrp(dto.getGRP());
+        entity.setGrpAdmin(dto.getGRP_ADMIN());
+        entity.setDomain(dto.getDOMAIN());
+        entity.setEarsUse(dto.getEARS_USE());
+        entity.setEarsExpireAction(dto.getEARS_EXPIRE_ACTION());
+        entity.setRouteServer(dto.getROUTE_SERVER());
+        entity.setForwardServer(dto.getFORWARD_SERVER());
+        entity.setRouteEmail(dto.getROUTE_EMAIL());
+        entity.setRunMode(dto.getRUN_MODE());
+        entity.setFilterOrder(dto.getFILTER_ORDER());
+        entity.setAptUse(dto.getAPT_USE());
+        entity.setDetoxUse(dto.getDETOX_USE());
+        entity.setLang(dto.getLANG());
+        entity.setUsrGrade(dto.getSQLSERVER_USR_GRADE());
+        entity.setUsrDept(dto.getSQLSERVER_DEPT_INFO());
+        entity.setUsrManager(dto.getUSR_MANAGER());
+        entity.setIsValid(dto.getIS_VALID());
+        hrRepository.save(entity);
+        /**
         entity.setEMAIL(dto.getEMAIL());
         entity.setPASSWORD(dto.getPASSWORD());
         entity.setName(dto.getNAME());
@@ -175,7 +201,9 @@ public class SqlServer_HR_ServiceImpl implements SqlServer_HR_Service {
         entity.setUsrManager(dto.getUSR_MANAGER());
         entity.setIsValid(dto.getIS_VALID());
 
+
         hrRepository.save(entity);
+         **/
     }
 
     @Override
@@ -207,12 +235,13 @@ public class SqlServer_HR_ServiceImpl implements SqlServer_HR_Service {
 
     @Override
     public void dept_modify(deptDTO dto) {
-        sqlserver_dept_info entity = deptRepository.getById(dto.getDept_num());
+        Optional<sqlserver_dept_info> entity = deptRepository.findById(dto.getDept_num());
 
-        entity.changeDeptName(dto.getDept_name());
-        entity.changeParent(dto.getDept_parent());
-
-        deptRepository.save(entity);
+        entity.ifPresent(sqlserver_dept_info -> {
+            sqlserver_dept_info.changeDeptName(dto.getDept_name());
+            sqlserver_dept_info.changeParent(dto.getDept_parent());
+            deptRepository.save(sqlserver_dept_info);
+        });
     }
 
     @Override
@@ -243,11 +272,12 @@ public class SqlServer_HR_ServiceImpl implements SqlServer_HR_Service {
 
     @Override
     public void grade_modify(gradeDTO dto) {
-        sqlserver_user_grade entity = gradeRepository.getById(dto.getGrade_num());
+        Optional<sqlserver_user_grade> entity = gradeRepository.findById(dto.getGrade_num());
 
-        entity.changeGradeName(dto.getGrade_name());
-
-        gradeRepository.save(entity);
+        entity.ifPresent(sqlserver_user_grade -> {
+            sqlserver_user_grade.changeGradeName(dto.getGrade_name());
+            gradeRepository.save(sqlserver_user_grade);
+        });
     }
 
     @Override
