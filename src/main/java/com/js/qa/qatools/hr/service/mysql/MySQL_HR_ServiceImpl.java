@@ -100,13 +100,13 @@ public class MySQL_HR_ServiceImpl implements MySQL_HR_Service{
 
             // select의 option 중 value가 0이면 랜덤생성한다.
             if(grade == 0){
-                long grade_count = gradeRepository.count();
+                long grade_count = userGrade.size();
                 tempHrDTO.setMYSQL_USR_GRADE(userGrade.get((int) (Math.random() * grade_count)));
             }else{
                 tempHrDTO.setMYSQL_USR_GRADE(userGrade.get(grade-1));
             }
             if(dept == 0){
-                long dept_count = deptRepository.count();
+                long dept_count = deptList.size();
                 tempHrDTO.setMYSQL_DEPT_INFO(deptList.get((int) (Math.random() * dept_count)));
             }else{
                 tempHrDTO.setMYSQL_DEPT_INFO(deptList.get(dept-1));
