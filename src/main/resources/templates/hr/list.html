@@ -366,6 +366,9 @@
                         success: function (data) {
                             alert("정상처리되었습니다.");
                             window.location.reload();
+                            $("#check:checked").each(function () {
+                                $(this).prop("checked", false);
+                            })
                         },
                         // JSON수신 실패
                         error: function (xhr) {
@@ -373,7 +376,6 @@
                             window.location.reload();
                         }
                     })
-
                 }
             });
 
