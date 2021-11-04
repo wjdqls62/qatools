@@ -109,7 +109,6 @@ public class HrController {
     public String hr_auto_add(GenerateRequestPageDTO generateRequestPageDTO, RedirectAttributes redirectAttributes){
         String redirectDb = "";
 
-        System.out.println("@@@" + generateRequestPageDTO.getTargetDatabase() + "@@@");
         if(generateRequestPageDTO.getTargetDatabase().equals(DB_MYSQL)){
             redirectDb = DB_MYSQL;
             mysqlService.hr_auto_register(

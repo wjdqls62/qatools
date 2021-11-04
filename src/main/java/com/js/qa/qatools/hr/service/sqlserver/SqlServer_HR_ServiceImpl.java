@@ -74,19 +74,7 @@ public class SqlServer_HR_ServiceImpl implements SqlServer_HR_Service {
         List<sqlserver_dept_info> deptList = deptRepository.findAll();
         sqlserver_user_grade resultUserGrade;
         sqlserver_dept_info resultDeptInfo;
-        // select의 option 중 value가 0이면 랜덤생성한다.
-        if(grade == 0){
-            long grade_count = gradeRepository.count();
-            resultUserGrade = userGrade.get((int) (Math.random() * grade_count));
-        }else{
-            resultUserGrade = userGrade.get(grade-1);
-        }
-        if(dept == 0){
-            long dept_count = deptRepository.count();
-            resultDeptInfo = deptList.get((int) (Math.random() * dept_count));
-        }else{
-            resultDeptInfo = deptList.get(dept-1);
-        }
+
 
         List<sqlserver_qa_test_hr> entityList = new ArrayList<>();
         String[] domain = domainList.split(",");
@@ -113,9 +101,21 @@ public class SqlServer_HR_ServiceImpl implements SqlServer_HR_Service {
                     .LANG(lang)
                     .USR_MANAGER(null)
                     .IS_VALID(null)
-                    .SQLSERVER_USR_GRADE(resultUserGrade)
-                    .SQLSERVER_DEPT_INFO(resultDeptInfo)
                     .build();
+
+            // select의 option 중 value가 0이면 랜덤생성한다.
+            if(grade == 0){
+                long grade_count = userGrade.size();
+                tempHrDTO.setSQLSERVER_USR_GRADE(userGrade.get((int) (Math.random() * grade_count)));
+            }else{
+                tempHrDTO.setSQLSERVER_USR_GRADE(userGrade.get(grade-1));
+            }
+            if(dept == 0){
+                long dept_count = deptList.size();
+                tempHrDTO.setSQLSERVER_DEPT_INFO(deptList.get((int) (Math.random() * dept_count)));
+            }else{
+                tempHrDTO.setSQLSERVER_DEPT_INFO(deptList.get(dept-1));
+            }
 
             entityList.add(dtoToEntity(tempHrDTO));
         }

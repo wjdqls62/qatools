@@ -1,8 +1,9 @@
 package com.js.qa.qatools.hr.user;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class GenerateUser {
 
     // 패스워드 생성
@@ -70,7 +71,5 @@ public class GenerateUser {
         char ch = (char) ((Math.random() * 26) + 97);
         return ch;
     }
-
-
 }
 
