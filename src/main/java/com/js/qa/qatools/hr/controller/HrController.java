@@ -83,7 +83,6 @@ public class HrController {
             model.addAttribute("result", sqlServerService.hr_read(emp_no));
         }
         model.addAttribute("dbType", pageRequestDTO.getDbType());
-        model.addAttribute("msg", pageRequestDTO.getDbType());
         log.info("hr_modify apge");
     }
 
