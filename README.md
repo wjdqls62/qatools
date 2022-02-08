@@ -1,14 +1,14 @@
 # QA-Tools
 
-QA-Tools는 SpringBoot, JPA기반의 웹애플리케이션이다.
-IntelliJ에서 아래와 같이 Jar를 생성하도록 한다.
-Gradle → Tasks → build → bootJar 
+QA-Tools는 SpringBoot, JPA기반의 웹애플리케이션이다.</br>
+IntelliJ에서 아래와 같이 Jar를 생성하도록 한다.</br>
+Gradle → Tasks → build → bootJar </br>
 
-/** Dockerfile 작성 **/
+/** Dockerfile 작성 **/</br>
 
-FROM openjdk:14
-ADD qatools-0.0.1-SNAPSHOT.jar qatoos-0.1.jar
-ENTRYPOINT ["java", "-jar", "qatoos-0.1.jar"]
+FROM openjdk:14</br>
+ADD qatools-0.0.1-SNAPSHOT.jar qatoos-0.1.jar</br>
+ENTRYPOINT ["java", "-jar", "qatoos-0.1.jar"]</br>
 
 /** build CMD **/
 #docker build --tag qa-tools-0.1 .
