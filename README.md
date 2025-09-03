@@ -1,7 +1,11 @@
 # QA-Tools
 
-QA-Tools는 SpringBoot, JPA기반의 웹애플리케이션이다.</br>
+QA-Tools는 SpringBoot, JPA기반의 웹애플리케이션이다.</br></br>
+
 IntelliJ에서 아래와 같이 Jar를 생성하도록 한다.</br>
+- 본 코드는 JDK 14환경에서 빌드 가능하고 25.09.03 기준으로 JDK 13 환경에서도 빌드가 가능함을 확인하였다.
+- 만약 DB접속 정보가 변경되었다면 /src/main/resources/application.properties 를 수정하도록 한다.
+
 Gradle → Tasks → build → bootJar </br>
 
 /** Dockerfile 작성 **/</br>
